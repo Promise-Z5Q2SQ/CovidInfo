@@ -19,35 +19,17 @@ public class ConnectInterface {
     @RequiresApi(api = Build.VERSION_CODES.N)
 
     //初始化新闻列表
-    public static Single<List<News>> InitNews(final String type) {
+    public static Single<List<News>> InitServer(final String type) {
         return Flowable.fromCallable(new Callable<List<News>>() {
             @Override
             public List<News> call() throws Exception {
-                if(type == "all"){
-                    try {
-                        Server.server.InitNews();
-                        return Server.server.NewsInShow;
-                    } catch (Exception e) {
-                        return new ArrayList<News>();
-                    }
-                }
-                else if(type == "news"){
-                    try {
-                        Server.server.InitNews_N();
-                        return Server.server.N_NewsInShow;
-                    } catch (Exception e) {
-                        return new ArrayList<News>();
-                    }
-                }
-                else if(type == "paper"){
-                    try {
-                        Server.server.InitNews_P();
-                        return Server.server.P_NewsInShow;
-                    } catch (Exception e) {
-                        return new ArrayList<News>();
-                    }
-                }
-                else {
+                try {
+                    Server.server.InitServer();
+                    Server.server.InitNews();
+                    Server.server.InitNews_N();
+                    Server.server.InitNews_P();
+                    return Server.server.NewsInShow;
+                } catch (Exception e) {
                     return new ArrayList<News>();
                 }
             }
@@ -58,17 +40,6 @@ public class ConnectInterface {
                 return Flowable.fromIterable(Server.server.NewsHistory);//fixme 如果运行了这一句代表网络出现问题没有正常返回
             }
         }).toList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
-    }
-
-    //初始化服务器
-    public static void InitServer() {
-        Single.fromCallable(new Callable<Object>() {
-            @Override
-            public Object call() throws Exception {
-                Server.server.InitServer();
-                return new Object();
-            }
-        }).subscribeOn(Schedulers.io()).subscribe();
     }
 
     //获取当前要显示的新闻
