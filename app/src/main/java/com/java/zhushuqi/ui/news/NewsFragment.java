@@ -1,6 +1,7 @@
 package com.java.zhushuqi.ui.news;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -11,9 +12,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.java.zhushuqi.HistoryAdapter;
+import com.java.zhushuqi.NewsPageActivity;
 import com.java.zhushuqi.R;
 import com.google.android.material.tabs.TabLayout;
+import com.java.zhushuqi.TabSelectActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +38,7 @@ public class NewsFragment extends Fragment {
         placeholderFragments.add(fragment_news);
         placeholderFragments.add(fragment_paper);
 
-        View root = inflater.inflate(R.layout.fragment_news, container, false);
+        final View root = inflater.inflate(R.layout.fragment_news, container, false);
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(root.getContext(),
                 this.requireActivity().getSupportFragmentManager(), placeholderFragments);
         ViewPager viewPager = root.findViewById(R.id.viewpager);
@@ -80,6 +84,16 @@ public class NewsFragment extends Fragment {
             @Override
             public void onFocusChange(View view, boolean b) {
                 mListView.setVisibility(0);
+            }
+        });
+
+        FloatingActionButton floatingActionButton = root.findViewById(R.id.fab);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Context context = root.getContext();
+                Intent intent = new Intent(context, TabSelectActivity.class);
+                context.startActivity(intent);
             }
         });
 

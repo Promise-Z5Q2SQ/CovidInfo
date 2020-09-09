@@ -77,4 +77,13 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
     </androidx.viewpager.widget.ViewPager>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="15dp"
+            app:fabSize="auto"
+            android:src="@drawable/ic_tab_black_24dp"/>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
