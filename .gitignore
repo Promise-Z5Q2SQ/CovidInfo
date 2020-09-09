@@ -1,2 +1,4 @@
-
-.gradle/6.3/executionHistory/executionHistory.bin
+/build
+/.gradle
+/app/build
+.DS_Store
