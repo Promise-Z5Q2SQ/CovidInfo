@@ -19,11 +19,6 @@ import io.reactivex.functions.Consumer;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private FrameLayout mainFrame;
-    private BottomNavigationView bottomNavigation;
-    private NewsFragment newsFragment;
-    private DashboardFragment dashboardFragment;
-    private NotificationsFragment notificationsFragment;
     private Fragment[] fragments;
     private int lastFragment = 0;
 
@@ -41,13 +36,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        newsFragment = new NewsFragment();
-        dashboardFragment = new DashboardFragment();
-        notificationsFragment = new NotificationsFragment();
+        NewsFragment newsFragment = new NewsFragment();
+        DashboardFragment dashboardFragment = new DashboardFragment();
+        NotificationsFragment notificationsFragment = new NotificationsFragment();
         fragments = new Fragment[]{newsFragment, dashboardFragment, notificationsFragment};
-        mainFrame = findViewById(R.id.nav_host_fragment);
+
         getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, newsFragment).show(newsFragment).commit();
-        bottomNavigation = findViewById(R.id.nav_view);
+        BottomNavigationView bottomNavigation = findViewById(R.id.nav_view);
         bottomNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
@@ -81,9 +76,9 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    private void switchFragment(int lastfragment, int index) {
+    private void switchFragment(int lastFragment, int index) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.hide(fragments[lastfragment]);
+        transaction.hide(fragments[lastFragment]);
         if (!fragments[index].isAdded())
             transaction.add(R.id.nav_host_fragment, fragments[index]);
         transaction.show(fragments[index]).commitAllowingStateLoss();
