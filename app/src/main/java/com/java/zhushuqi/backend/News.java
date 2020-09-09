@@ -13,6 +13,7 @@ public class News {
     public String content;//内容
     public String[] seg_text;//关键字字符串，用空格分隔
     public String source;//来源（有些是空字符串）
+    public boolean viewed = false;//是否被浏览过
 
     @Override
     public String toString() {
