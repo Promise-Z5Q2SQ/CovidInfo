@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.SearchView;
 
 import java.util.List;
@@ -44,6 +45,8 @@ public class HistoryAdapter extends ArrayAdapter<String> implements Filterable {
             public void onClick(View view) {
                 EditText editText = searchView.findViewById(androidx.appcompat.R.id.search_src_text);
                 editText.setText(titles.get(position));
+                ImageView searchButton = searchView.findViewById(androidx.appcompat.R.id.search_go_btn);
+                searchButton.performClick();
             }
         });
         return userListItem;

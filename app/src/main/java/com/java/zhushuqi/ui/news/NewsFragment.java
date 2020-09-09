@@ -53,7 +53,6 @@ public class NewsFragment extends Fragment {
         mSearchView.setOnQueryTextListener(new androidx.appcompat.widget.SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                System.out.println(query);
                 mSearchView.clearFocus();
                 mStrings.remove(query);
                 mStrings.add(query);
@@ -61,6 +60,7 @@ public class NewsFragment extends Fragment {
                         context, mStrings, mSearchView);
                 mListView.setAdapter(historyAdapter);
                 mListView.setVisibility(4);
+                System.out.println("searching " + query);
                 return false;
             }
 
@@ -76,7 +76,7 @@ public class NewsFragment extends Fragment {
             }
         });
         EditText editText = mSearchView.findViewById(androidx.appcompat.R.id.search_src_text);
-        editText.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+        editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
                 mListView.setVisibility(0);

@@ -26,8 +26,6 @@ public class ConnectInterface {
                 try {
                     Server.server.InitServer();
                     Server.server.InitNews();
-                    Server.server.InitNews_N();
-                    Server.server.InitNews_P();
                     return Server.server.NewsInShow;
                 } catch (Exception e) {
                     return new ArrayList<News>();
