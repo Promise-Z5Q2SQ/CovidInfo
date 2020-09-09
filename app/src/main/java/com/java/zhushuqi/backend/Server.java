@@ -15,12 +15,14 @@ public class Server {
     public HashMap<String, Dataset> DataMap;
     public ArrayList<Scholar> ScholarInfo;  //学者信息
     public ArrayList<News> NewsInShow;      //正出现在浏览界面的新闻（20）
-    public ArrayDeque<News> NewsFromPaperInShow;      //正出现在浏览界面的新闻（20）
-    public ArrayDeque<News> NewsFromNewsInShow;      //正出现在浏览界面的新闻（20）
+    public ArrayList<News> P_NewsInShow;      //正出现在浏览界面的新闻（20）
+    public ArrayList<News> N_NewsInShow;      //正出现在浏览界面的新闻（20）
     public ArrayList<News> NewsHistory;     //刷新记录
     public ArrayList<News> ViewedHistory;    //浏览记录
     public ArrayList<String> WordsHistory;  //搜索历史记录
     public int news_page = 4;
+    public int N_news_page = 4;
+    public int P_news_page = 4;
 
     public void InitServer() {//初始化服务器:读入疫情数据、刷新新闻列表、读入学者数据
         try {
@@ -62,9 +64,6 @@ public class Server {
                 else{
                     h = NewsLoader.RenewNews(0, "all", 10, NewsInShow);//更新了多少条新闻
                 }
-                for (int i = 0; i < h; i++) {
-                     NewsHistory.add(0, NewsInShow.get(NewsInShow.size() - i - 1));
-                }
                 for(int i = 0; i < h; i++){
                     NewsInShow.remove(NewsInShow.size() - 1);
                 }
@@ -91,6 +90,80 @@ public class Server {
         }catch(JSONException j){}
     }
 
+    public int GetLatestNews_N() {//下拉获取最新新闻,返回值是获取的新的新闻的数量
+        try {
+            try {
+                int h = 0;
+                if(N_news_page >= 1){
+                    h = NewsLoader.RenewNews(N_news_page - 1, "all", 10, N_NewsInShow);//更新了多少条新闻
+                    N_news_page -= 1;
+                }
+                else{
+                    h = NewsLoader.RenewNews(0, "all", 10, N_NewsInShow);//更新了多少条新闻
+                }
+                for(int i = 0; i < h; i++){
+                    N_NewsInShow.remove(N_NewsInShow.size() - 1);
+                }
+                return h;
+            } catch (IOException e) {
+                return 0;
+            }
+        } catch (JSONException f) {
+            return 0;
+        }
+    }
+
+
+    public void RetrievePresentNews_N(){//上拉查看更早的新闻(固定更新10条)
+        try {
+            try {
+                NewsLoader.RetrieveNews(N_news_page + 2, "news", 10, N_NewsInShow);
+                N_news_page += 1;
+                while(N_NewsInShow.size() > 20){
+                    N_NewsInShow.remove(0);
+                }
+            } catch (IOException e) {
+            }
+        }catch(JSONException j){}
+    }
+
+    public int GetLatestNews_P() {//下拉获取最新新闻,返回值是获取的新的新闻的数量
+        try {
+            try {
+                int h = 0;
+                if(P_news_page >= 1){
+                    h = NewsLoader.RenewNews(P_news_page - 1, "all", 10, P_NewsInShow);//更新了多少条新闻
+                    P_news_page -= 1;
+                }
+                else{
+                    h = NewsLoader.RenewNews(0, "all", 10, P_NewsInShow);//更新了多少条新闻
+                }
+                for(int i = 0; i < h; i++){
+                    P_NewsInShow.remove(P_NewsInShow.size() - 1);
+                }
+                return h;
+            } catch (IOException e) {
+                return 0;
+            }
+        } catch (JSONException f) {
+            return 0;
+        }
+    }
+
+
+    public void RetrievePresentNews_P(){//上拉查看更早的新闻(固定更新10条)
+        try {
+            try {
+                NewsLoader.RetrieveNews(P_news_page + 2, "news", 10, P_NewsInShow);
+                P_news_page += 1;
+                while(P_NewsInShow.size() > 20){
+                    P_NewsInShow.remove(0);
+                }
+            } catch (IOException e) {
+            }
+        }catch(JSONException j){}
+    }
+
     public void AddNewsToHistory(int v){
         ViewedHistory.add(NewsInShow.get(v));
     }
@@ -99,8 +172,8 @@ public class Server {
         DataMap = new HashMap<String, Dataset>();
         ScholarInfo = new ArrayList<Scholar>();  //学者信息
         NewsInShow = new ArrayList<News>();      //正出现在浏览界面的新闻（20）
-        NewsFromPaperInShow = new ArrayDeque<News>();      //正出现在浏览界面的新闻（20）
-        NewsFromNewsInShow = new ArrayDeque<News>();      //正出现在浏览界面的新闻（20）
+        P_NewsInShow = new ArrayList<News>();      //正出现在浏览界面的新闻（20）
+        N_NewsInShow = new ArrayList<News>();      //正出现在浏览界面的新闻（20）
         NewsHistory = new ArrayList<News>();     //浏览记录
         WordsHistory = new ArrayList<String>();  //搜索历史记录
         ViewedHistory = new ArrayList<News>();
