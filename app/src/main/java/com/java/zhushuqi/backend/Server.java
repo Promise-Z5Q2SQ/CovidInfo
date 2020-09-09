@@ -20,6 +20,7 @@ public class Server {
     public ArrayList<News> NewsHistory;     //刷新记录
     public ArrayList<News> ViewedHistory;    //浏览记录
     public ArrayList<String> WordsHistory;  //搜索历史记录
+    public int news_page = 4;
 
     public void InitServer() {//初始化服务器:读入疫情数据、刷新新闻列表、读入学者数据
         try {
@@ -38,7 +39,9 @@ public class Server {
     public void InitNews() {//打开应用时刷新新闻列表
         try {
             try {
-                NewsLoader.GetNews(2, "all", 20, NewsInShow);
+                NewsLoader.GetNews(news_page, "all", 10, NewsInShow);
+                news_page -= 1;
+                NewsLoader.GetNews(news_page, "all", 10, NewsInShow);
                 //NewsLoader.GetNews(1, "news", 20, NewsFromNewsInShow);
                 //NewsLoader.GetNews(1, "paper", 20, NewsFromPaperInShow);
             } catch (IOException e) {System.out.println("IOException!");e.printStackTrace();
@@ -51,7 +54,14 @@ public class Server {
     public int GetLatestNews() {//下拉获取最新新闻,返回值是获取的新的新闻的数量
         try {
             try {
-                int h = NewsLoader.RenewNews(1, "all", 10, NewsInShow);//更新了多少条新闻
+                int h = 0;
+                if(news_page >= 1){
+                    h = NewsLoader.RenewNews(news_page - 1, "all", 10, NewsInShow);//更新了多少条新闻
+                    news_page -= 1;
+                }
+                else{
+                    h = NewsLoader.RenewNews(0, "all", 10, NewsInShow);//更新了多少条新闻
+                }
                 for (int i = 0; i < h; i++) {
                      NewsHistory.add(0, NewsInShow.get(NewsInShow.size() - i - 1));
                 }
@@ -68,18 +78,17 @@ public class Server {
     }
 
 
-    public int RetrievePresentNews() {//上拉查看更早的新闻,返回更新了多少条旧新闻
-        int h = 10;
-        if(NewsHistory.equals(null))return 0;
-        if(h < NewsHistory.size()){
-            h = NewsHistory.size();
-        }
-        for (int i = 0; i < h; i++) {
-            NewsInShow.add(NewsHistory.get(0));
-            NewsHistory.remove(0);
-            NewsInShow.remove(0);
-        }
-        return h;
+    public void RetrievePresentNews(){//上拉查看更早的新闻(固定更新10条)
+        try {
+            try {
+                NewsLoader.RetrieveNews(news_page + 2, "all", 10, NewsInShow);
+                news_page += 1;
+                while(NewsInShow.size() > 20){
+                    NewsInShow.remove(0);
+                }
+            } catch (IOException e) {
+            }
+        }catch(JSONException j){}
     }
 
     public void AddNewsToHistory(int v){

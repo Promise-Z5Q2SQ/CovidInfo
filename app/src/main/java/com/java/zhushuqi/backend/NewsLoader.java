@@ -75,6 +75,45 @@ public class NewsLoader {
         return (RenewNewsFromJSON(news_json, newsl));
     }
 
+    public static void RetrieveNews(final int page, final String type, final int size, ArrayList<News> newsl) throws IOException, JSONException {
+        String URL_String = new String(String.format(link, type, page, size));
+        String body = GetContentFromURL(URL_String);
+        if (body.equals("")) {
+            Log.d("warning", "No message received.");
+        }
+        JSONObject news_json = new JSONObject(body);
+        RetrieveNewsFromJSON(news_json, newsl);
+    }
+
+    public static void RetrieveNewsFromJSON(JSONObject src, ArrayList<News> newsl) throws JSONException{
+        JSONArray list;
+        JSONObject obj;
+        list = src.optJSONArray("data");
+        for (int i = 0; i < list.length(); i++) {
+            News news = new News();
+            obj = list.getJSONObject(i);//这一页里的第i条新闻
+            news.id = obj.optString("_id");
+            news.author = "";
+            JSONArray authorlist = obj.optJSONArray("authors");
+            if (authorlist != null) {
+                for (int j = 0; j < authorlist.length(); i++) {
+                    JSONObject author = authorlist.getJSONObject(j);//取出作者
+                    news.author = news.author + " " + author.optString("name");//用空格分隔各作者的名字
+                }
+            }
+            news.content = obj.optString("content");
+            news.date = obj.optString("date");
+            news.influence = obj.optString("influence");
+            news.seg_text = obj.optString("seg_text").split(" ");
+            news.source = obj.optString("source");
+            news.title = obj.optString("title");
+            news.type = obj.optString("type");
+            news.lang = obj.optString("lang");
+            newsl.add(news);//把旧新闻一条一条加到新闻列表的末端
+        }
+    }
+
+
     public static int RenewNewsFromJSON(JSONObject src, ArrayList<News> newsl) throws JSONException {
         String latest_id = newsl.get(0).id;
         int num = 10;
