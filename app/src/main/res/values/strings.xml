@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">CovidInfo</string>
+    <string name="title_news">News</string>
+    <string name="title_data">Data</string>
+    <string name="title_knowledge">Knowledge</string>
+    <string name="welcome">WelcomePage</string>
+    <string name="share">Share</string>
+    <string name="search">Search</string>
+</resources>

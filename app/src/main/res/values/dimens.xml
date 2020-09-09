@@ -1,0 +1,4 @@
+<resources>
+    <dimen name="news_title_height">70dp</dimen>
+    <dimen name="news_info_height">30dp</dimen>
+</resources>
