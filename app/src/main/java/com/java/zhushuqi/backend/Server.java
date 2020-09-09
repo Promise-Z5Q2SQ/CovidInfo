@@ -35,7 +35,6 @@ public class Server {
                 ScholarInfo = ScholarLoader.GetScholar(ScholarInfo);
             } catch (IOException e) {System.out.println("IOException!");}
         } catch (JSONException f) {System.out.println("JSONException!");}
-        InitNews();
     }
 
     public void InitNews() {//打开应用时刷新新闻列表
@@ -46,6 +45,30 @@ public class Server {
                 NewsLoader.GetNews(news_page, "all", 10, NewsInShow);
                 //NewsLoader.GetNews(1, "news", 20, NewsFromNewsInShow);
                 //NewsLoader.GetNews(1, "paper", 20, NewsFromPaperInShow);
+            } catch (IOException e) {System.out.println("IOException!");e.printStackTrace();
+            }
+        } catch (JSONException f) {System.out.println("JSONException!");
+        }
+    }
+
+    public void InitNews_N() {//打开应用时刷新新闻列表
+        try {
+            try {
+                NewsLoader.GetNews(N_news_page, "news", 10, N_NewsInShow);
+                N_news_page -= 1;
+                NewsLoader.GetNews(N_news_page, "news", 10, N_NewsInShow);
+            } catch (IOException e) {System.out.println("IOException!");e.printStackTrace();
+            }
+        } catch (JSONException f) {System.out.println("JSONException!");
+        }
+    }
+
+    public void InitNews_P() {//打开应用时刷新新闻列表
+        try {
+            try {
+                NewsLoader.GetNews(P_news_page, "paper", 10, P_NewsInShow);
+                P_news_page -= 1;
+                NewsLoader.GetNews(P_news_page, "paper", 10, P_NewsInShow);
             } catch (IOException e) {System.out.println("IOException!");e.printStackTrace();
             }
         } catch (JSONException f) {System.out.println("JSONException!");
