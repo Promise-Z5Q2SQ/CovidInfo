@@ -2,6 +2,7 @@ package com.java.zhushuqi.ui.news;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -91,7 +92,7 @@ public class PlaceholderFragment extends Fragment {
 
         MyAdapter(String s) {
             name = s;
-            ConnectInterface.GetCurrentNews().subscribe(new Consumer<List<News>>() {
+            ConnectInterface.GetCurrentNews(name).subscribe(new Consumer<List<News>>() {
                 @Override
                 public void accept(List<News> currentNews) {
                     data = currentNews;
@@ -110,15 +111,24 @@ public class PlaceholderFragment extends Fragment {
         }
 
         @Override
-        public void onBindViewHolder(final ViewHolder viewHolder, int position) {
+        public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
             viewHolder.mTextView_title.setText(data.get(position).title);
+            if (data.get(position).viewed)
+                viewHolder.mTextView_title.setTextColor(Color.rgb(125, 125, 125));
+            else
+                viewHolder.mTextView_title.setTextColor(Color.rgb(0, 0, 0));
             viewHolder.mTextView_source.setText(data.get(position).source);
             viewHolder.mTextView_time.setText(data.get(position).date);
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Context context = viewHolder.itemView.getContext();
-                    context.startActivity(new Intent(context, NewsPageActivity.class));
+                    Intent intent = new Intent(context, NewsPageActivity.class);
+                    intent.putExtra("title",data.get(position).title);
+                    intent.putExtra("content",data.get(position).content);
+                    context.startActivity(intent);
+                    data.get(position).viewed = true;
+                    notifyDataSetChanged();
                 }
             });
         }
@@ -129,7 +139,7 @@ public class PlaceholderFragment extends Fragment {
         }
 
         public void loadMore() {
-            ConnectInterface.RetrievePresentNews().subscribe(new Consumer<List<News>>() {
+            ConnectInterface.RetrievePresentNews(name).subscribe(new Consumer<List<News>>() {
                 @Override
                 public void accept(List<News> currentNews) {
                     data = currentNews;
@@ -140,7 +150,7 @@ public class PlaceholderFragment extends Fragment {
         }
 
         public void refreshData() {
-            ConnectInterface.GetLatestNews().subscribe(new Consumer<List<News>>() {
+            ConnectInterface.GetLatestNews(name).subscribe(new Consumer<List<News>>() {
                 @Override
                 public void accept(List<News> currentNews) {
                     data = currentNews;

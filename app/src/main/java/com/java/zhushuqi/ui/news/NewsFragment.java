@@ -27,9 +27,9 @@ public class NewsFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         List<PlaceholderFragment> placeholderFragments = new ArrayList<>();
-        PlaceholderFragment fragment_all = new PlaceholderFragment("All");
-        PlaceholderFragment fragment_news = new PlaceholderFragment("News");
-        PlaceholderFragment fragment_paper = new PlaceholderFragment("Paper");
+        PlaceholderFragment fragment_all = new PlaceholderFragment("all");
+        PlaceholderFragment fragment_news = new PlaceholderFragment("news");
+        PlaceholderFragment fragment_paper = new PlaceholderFragment("paper");
         placeholderFragments.add(fragment_all);
         placeholderFragments.add(fragment_news);
         placeholderFragments.add(fragment_paper);

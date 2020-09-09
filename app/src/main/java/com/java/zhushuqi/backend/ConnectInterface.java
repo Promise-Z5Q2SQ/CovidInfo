@@ -19,7 +19,7 @@ public class ConnectInterface {
     @RequiresApi(api = Build.VERSION_CODES.N)
 
     //初始化新闻列表
-    public static Single<List<News>> InitServer(final String type) {
+    public static Single<List<News>> InitServer() {
         return Flowable.fromCallable(new Callable<List<News>>() {
             @Override
             public List<News> call() throws Exception {

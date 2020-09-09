@@ -1,6 +1,8 @@
 package com.java.zhushuqi;
 
+import android.content.Intent;
 import android.view.View;
+import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
@@ -21,5 +23,13 @@ public class NewsPageActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
+        Intent intent = getIntent();
+        String title = intent.getStringExtra("title");
+        String content = intent.getStringExtra("content");
+        TextView textView_title = findViewById(R.id.text_title);
+        TextView textView_content = findViewById(R.id.text_content);
+        textView_title.setText(title);
+        textView_content.setText(content);
     }
 }
