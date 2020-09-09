@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Gradle: com.carson_ho:SearchLayout:1.0.1@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/95da7ce2b49b19ff7a9d88bad27d935a/jetified-SearchLayout-1.0.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/95da7ce2b49b19ff7a9d88bad27d935a/jetified-SearchLayout-1.0.1/res" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.carson_ho/SearchLayout/1.0.1/d2236d7ea218bcf7c9387b94a0ed65b1406ef4bd/SearchLayout-1.0.1-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.carson_ho/SearchLayout/1.0.1/d4f0a33d6798d83a41201106785cf44c8530b2c2/SearchLayout-1.0.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
