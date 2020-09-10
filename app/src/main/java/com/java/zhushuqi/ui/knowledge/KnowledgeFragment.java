@@ -103,11 +103,11 @@ public class KnowledgeFragment extends Fragment {
             viewHolder.relationsView.setLayoutManager(new GridLayoutManager(viewHolder.itemView.getContext(), 2));
 
             viewHolder.knowledge_label.setText(data.get(position).label);
-            if (data.get(position).baidu != null)
+            if (data.get(position).baidu.equals(""))
                 viewHolder.knowledge_info.setText(data.get(position).baidu);
-            else if (data.get(position).enwiki != null)
+            else if (data.get(position).enwiki.equals(""))
                 viewHolder.knowledge_info.setText(data.get(position).enwiki);
-            else if (data.get(position).zhwiki != null)
+            else if (data.get(position).zhwiki.equals(""))
                 viewHolder.knowledge_info.setText(data.get(position).zhwiki);
             viewHolder.knowledge_image.setImageBitmap(data.get(position).img);
         }

@@ -16,4 +16,9 @@
             android:icon="@drawable/ic_notifications_black_24dp"
             android:title="@string/title_knowledge"/>
 
+    <item
+            android:id="@+id/navigation_scholar"
+            android:icon="@drawable/ic_scholar_black_24dp"
+            android:title="@string/scholar"/>
+
 </menu>

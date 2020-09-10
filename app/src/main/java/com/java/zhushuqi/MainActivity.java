@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.java.zhushuqi.backend.ConnectInterface;
 import com.java.zhushuqi.backend.News;
 import com.java.zhushuqi.backend.Server;
+import com.java.zhushuqi.ui.Scholar.ScholarFragment;
 import com.java.zhushuqi.ui.data.DataFragment;
 import com.java.zhushuqi.ui.news.NewsFragment;
 import com.java.zhushuqi.ui.knowledge.KnowledgeFragment;
@@ -38,7 +39,8 @@ public class MainActivity extends AppCompatActivity {
         NewsFragment newsFragment = new NewsFragment();
         DataFragment dashboardFragment = new DataFragment();
         KnowledgeFragment notificationsFragment = new KnowledgeFragment();
-        fragments = new Fragment[]{newsFragment, dashboardFragment, notificationsFragment};
+        ScholarFragment scholarFragment = new ScholarFragment();
+        fragments = new Fragment[]{newsFragment, dashboardFragment, notificationsFragment, scholarFragment};
 
         getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, newsFragment).show(newsFragment).commit();
         BottomNavigationView bottomNavigation = findViewById(R.id.nav_view);
@@ -66,6 +68,12 @@ public class MainActivity extends AppCompatActivity {
                     if (lastFragment != 2) {
                         switchFragment(lastFragment, 2);
                         lastFragment = 2;
+                    }
+                    return true;
+                case R.id.navigation_scholar:
+                    if (lastFragment != 3) {
+                        switchFragment(lastFragment, 3);
+                        lastFragment = 3;
                     }
                     return true;
                 default:

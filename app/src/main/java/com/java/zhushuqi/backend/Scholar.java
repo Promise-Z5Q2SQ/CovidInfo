@@ -1,9 +1,12 @@
 package com.java.zhushuqi.backend;
 
+import android.graphics.Bitmap;
+
 import java.util.ArrayList;
 
 public class Scholar {
     public String avatar;//头像
+    public Bitmap img;
     public String name;//名字（英文）
     public String name_zh;//名字（中文）
     public String position;//职位
@@ -15,10 +18,18 @@ public class Scholar {
     public String homepage;//个人主页
     public int num_viewed;
     public int num_followed;
-    public ArrayList<String>tags;//标签
+    public ArrayList<String> tags;//标签
+
+    public int gindex;
+    public int hindex;
+    public String activity;
+    public String sociability;
+    public String diversity;
+    public int citations;
 
     public boolean is_passedaway = false;
-    public Scholar(){
+
+    public Scholar() {
         tags = new ArrayList<String>();
     }
 
