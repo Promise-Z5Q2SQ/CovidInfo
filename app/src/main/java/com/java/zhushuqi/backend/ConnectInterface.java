@@ -1,6 +1,7 @@
 package com.java.zhushuqi.backend;
 
 import android.os.Build;
+import android.provider.ContactsContract;
 
 import androidx.annotation.RequiresApi;
 
@@ -100,7 +101,6 @@ public class ConnectInterface {
         }).toList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
-
     //获取当前要显示的新闻
     public static Single<List<News>> GetCurrentNews(final String type) {
         return Flowable.fromCallable(new Callable<List<News>>() {
@@ -177,11 +177,28 @@ public class ConnectInterface {
         }).flatMap(new Function<List<News>, Publisher<News>>() {
             @Override
             public Publisher<News> apply(List<News> Newses) {
-                if (Newses.size() > 0) return Flowable.fromIterable(Newses);
-                return Flowable.fromIterable(Server.server.NewsInShow);//fixme 如果运行了这一句代表网络出现问题没有正常返回
+                return Flowable.fromIterable(Newses);
+                //return Flowable.fromIterable(Server.server.NewsInShow);//fixme 如果运行了这一句代表网络出现问题没有正常返回
             }
         }).toList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
+
+    public static Single<Dataset> GetData(final String str) {
+        return Flowable.fromCallable(new Callable<Dataset>() {
+            @Override
+            public Dataset call() throws Exception {
+                try {
+                    Dataset ds = Server.server.DataMap.get(str);
+                    if(ds == null)return new Dataset();
+                    else return ds;
+                } catch (Exception e) {
+                    System.out.println("Ex");
+                    return new Dataset();
+                }
+            }
+        }).firstOrError().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+
 
     //下拉获取最新新闻
     public static Single<List<News>> GetLatestNews(final String type) {
