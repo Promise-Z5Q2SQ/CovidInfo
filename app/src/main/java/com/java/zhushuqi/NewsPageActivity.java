@@ -23,6 +23,12 @@ public class NewsPageActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+        toolbar.findViewById(R.id.action_share).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO Share
+            }
+        });
 
         Intent intent = getIntent();
         String title = intent.getStringExtra("title");
