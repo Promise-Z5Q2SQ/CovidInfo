@@ -36,7 +36,7 @@ public class ConnectInterface {
             @Override
             public Publisher<News> apply(List<News> Newses) {
                 if (Newses.size() > 0) return Flowable.fromIterable(Newses);
-                return Flowable.fromIterable(Server.server.NewsHistory);//fixme 如果运行了这一句代表网络出现问题没有正常返回
+                return Flowable.fromIterable(Server.server.NewsInShow);//fixme 如果运行了这一句代表网络出现问题没有正常返回
             }
         }).toList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
@@ -56,10 +56,11 @@ public class ConnectInterface {
             @Override
             public Publisher<News> apply(List<News> Newses) {
                 if (Newses.size() > 0) return Flowable.fromIterable(Newses);
-                return Flowable.fromIterable(Server.server.NewsHistory);//fixme 如果运行了这一句代表网络出现问题没有正常返回
+                return Flowable.fromIterable(Server.server.NewsInShow);//fixme 如果运行了这一句代表网络出现问题没有正常返回
             }
         }).toList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
+
     public static Single<List<News>> InitNews_N() {
         return Flowable.fromCallable(new Callable<List<News>>() {
             @Override
@@ -75,7 +76,7 @@ public class ConnectInterface {
             @Override
             public Publisher<News> apply(List<News> Newses) {
                 if (Newses.size() > 0) return Flowable.fromIterable(Newses);
-                return Flowable.fromIterable(Server.server.NewsHistory);//fixme 如果运行了这一句代表网络出现问题没有正常返回
+                return Flowable.fromIterable(Server.server.NewsInShow);//fixme 如果运行了这一句代表网络出现问题没有正常返回
             }
         }).toList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
@@ -94,7 +95,7 @@ public class ConnectInterface {
             @Override
             public Publisher<News> apply(List<News> Newses) {
                 if (Newses.size() > 0) return Flowable.fromIterable(Newses);
-                return Flowable.fromIterable(Server.server.NewsHistory);//fixme 如果运行了这一句代表网络出现问题没有正常返回
+                return Flowable.fromIterable(Server.server.NewsInShow);//fixme 如果运行了这一句代表网络出现问题没有正常返回
             }
         }).toList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
@@ -156,7 +157,28 @@ public class ConnectInterface {
             @Override
             public Publisher<News> apply(List<News> Newses) {
                 if (Newses.size() > 0) return Flowable.fromIterable(Newses);
-                return Flowable.fromIterable(Server.server.NewsHistory);//fixme 如果运行了这一句代表网络出现问题没有正常返回
+                return Flowable.fromIterable(Server.server.NewsInShow);//fixme 如果运行了这一句代表网络出现问题没有正常返回
+            }
+        }).toList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public static Single<List<News>> GetSearchAnswer(final String str) {
+        return Flowable.fromCallable(new Callable<List<News>>() {
+            @Override
+            public List<News> call() throws Exception {
+                try {
+                    Server.server.Search_News(str);
+                    return Server.server.SearchAnswer;
+                } catch (Exception e) {
+                    System.out.println("Ex");
+                    return new ArrayList<News>();
+                }
+            }
+        }).flatMap(new Function<List<News>, Publisher<News>>() {
+            @Override
+            public Publisher<News> apply(List<News> Newses) {
+                if (Newses.size() > 0) return Flowable.fromIterable(Newses);
+                return Flowable.fromIterable(Server.server.NewsInShow);//fixme 如果运行了这一句代表网络出现问题没有正常返回
             }
         }).toList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
@@ -198,7 +220,7 @@ public class ConnectInterface {
             @Override
             public Publisher<News> apply(List<News> Newses) {
                 if (Newses.size() > 0) return Flowable.fromIterable(Newses);
-                return Flowable.fromIterable(Server.server.NewsHistory);//fixme 如果运行了这一句代表网络出现问题没有正常返回
+                return Flowable.fromIterable(Server.server.NewsInShow);//fixme 如果运行了这一句代表网络出现问题没有正常返回
             }
         }).toList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
@@ -240,7 +262,7 @@ public class ConnectInterface {
             @Override
             public Publisher<News> apply(List<News> Newses) {
                 if (Newses.size() > 0) return Flowable.fromIterable(Newses);
-                return Flowable.fromIterable(Server.server.NewsHistory);//fixme 如果运行了这一句代表网络出现问题没有正常返回
+                return Flowable.fromIterable(Server.server.NewsInShow);//fixme 如果运行了这一句代表网络出现问题没有正常返回
             }
         }).toList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }

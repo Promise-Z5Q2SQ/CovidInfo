@@ -13,13 +13,14 @@ import java.util.HashSet;
 public class Server {
     public static Server server;
     public HashMap<String, Dataset> DataMap;
-    public ArrayList<Scholar> ScholarInfo;  //学者信息
-    public ArrayList<News> NewsInShow;      //正出现在浏览界面的新闻（20）
-    public ArrayList<News> P_NewsInShow;      //正出现在浏览界面的新闻（20）
-    public ArrayList<News> N_NewsInShow;      //正出现在浏览界面的新闻（20）
-    public ArrayList<News> NewsHistory;     //刷新记录
-    public ArrayList<News> ViewedHistory;    //浏览记录
-    public ArrayList<String> WordsHistory;  //搜索历史记录
+    public ArrayList<Scholar> ScholarInfo;      //学者信息
+    public ArrayList<News> NewsInShow;          //正出现在浏览界面的新闻（20）
+    public ArrayList<News> P_NewsInShow;        //正出现在浏览界面的新闻（20）
+    public ArrayList<News> N_NewsInShow;        //正出现在浏览界面的新闻（20）
+    public ArrayList<News> SearchPool;          //搜索范围（初始为100条新闻，之后会随着新闻加入浏览列表而扩充）
+    public ArrayList<News> SearchAnswer;        //搜索结果
+    public ArrayList<News> ViewedHistory;       //浏览记录
+    public ArrayList<String> WordsHistory;      //搜索历史记录
     public int news_page = 4;
     public int N_news_page = 4;
     public int P_news_page = 4;
@@ -43,6 +44,9 @@ public class Server {
                 NewsLoader.GetNews(news_page, "all", 10, NewsInShow);
                 news_page -= 1;
                 NewsLoader.GetNews(news_page, "all", 10, NewsInShow);
+                for(int i = 5; i < 15; i++){
+                    NewsLoader.GetNews(i, "all", 20, SearchPool);
+                }
             } catch (IOException e) {System.out.println("IOException!");e.printStackTrace();
             }
         } catch (JSONException f) {System.out.println("JSONException!");
@@ -191,20 +195,25 @@ public class Server {
 
     public Server(){
         DataMap = new HashMap<String, Dataset>();
-        ScholarInfo = new ArrayList<Scholar>();  //学者信息
-        NewsInShow = new ArrayList<News>();      //正出现在浏览界面的新闻（20）
-        P_NewsInShow = new ArrayList<News>();      //正出现在浏览界面的新闻（20）
-        N_NewsInShow = new ArrayList<News>();      //正出现在浏览界面的新闻（20）
-        NewsHistory = new ArrayList<News>();     //浏览记录
-        WordsHistory = new ArrayList<String>();  //搜索历史记录
+        ScholarInfo = new ArrayList<Scholar>();     //学者信息
+        NewsInShow = new ArrayList<News>();         //正出现在浏览界面的新闻（20）
+        P_NewsInShow = new ArrayList<News>();       //正出现在浏览界面的新闻（20）
+        N_NewsInShow = new ArrayList<News>();       //正出现在浏览界面的新闻（20）
+        SearchPool = new ArrayList<News>();         //搜索库
+        SearchAnswer = new ArrayList<News>();       //搜索结果
+        WordsHistory = new ArrayList<String>();     //搜索历史记录
         ViewedHistory = new ArrayList<News>();
     }
 
-    /*
     void Search_News(String key){
-        for(int i = 0; i < ; i++){
-
+        SearchAnswer.clear();
+        for(News n:SearchPool){
+            for(int i = 0; i < n.title.length() - key.length(); i++){
+                if(n.title.substring(i, key.length()).equals(key)){
+                    SearchAnswer.add(n);
+                    break;
+                }
+            }
         }
     }
-    */
 }
