@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Parcelable;
 import android.view.View;
 import android.widget.TextView;
@@ -11,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -45,7 +49,7 @@ public class NewsPageActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent share = new Intent(android.content.Intent.ACTION_SEND);
-                share.setType("text/plain");
+                share.setType("image/*");
                 PackageManager packageManager = getPackageManager();
                 List<ResolveInfo> list = packageManager.queryIntentActivities(share, 0);
                 System.out.println(list.size());
@@ -57,7 +61,15 @@ public class NewsPageActivity extends AppCompatActivity {
                 sendIntent.putExtra(Intent.EXTRA_TITLE, title);
                 sendIntent.putExtra(Intent.EXTRA_SUBJECT, "主题信息");
                 sendIntent.putExtra(Intent.EXTRA_TEXT, content);
-                sendIntent.setType("text/plain");
+                File f = new File("app/src/main/res/drawable/misaka.png");
+                if ((f != null) && (f.exists()) && (f.isFile())) {
+                    System.out.println(11111);
+                    intent.setType("image/png");
+                    intent.putExtra(Intent.EXTRA_STREAM, Uri.parse("app/src/main/res/drawable/misaka.png"));
+                }
+                sendIntent.putExtra(Intent.EXTra_, shareContent+shareUrl);
+                sendIntent.setClassName("com.tencent.mm", "com.tencent.mm.ui.tools.ShareToTimeLineUI");//微信朋友圈，仅支持分享图片
+                sendIntent.setType("image/*");
 //   sendIntent.setClassName("com.tencent.mm", "com.tencent.mm.ui.tools.ShareImgUI");//微信朋友
 //   sendIntent.setClassName("com.tencent.mobileqq", "cooperation.qqfav.widget.QfavJumpActivity");//保存到QQ收藏
 //   sendIntent.setClassName("com.tencent.mobileqq", "cooperation.qlink.QlinkShareJumpActivity");//QQ面对面快传

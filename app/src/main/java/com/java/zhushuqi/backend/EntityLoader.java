@@ -65,8 +65,14 @@ public class EntityLoader {
             }
             for(int j = 0; j < rel.length(); j++){
                 JSONObject jj = rel.optJSONObject(j);
-                key = jj.optString("relation");
-                value = jj.optString("label");
+                key = jj.optString("label");
+                value = jj.optString("relation");
+                if(jj.optString("forward").equals("true")){
+                    value = value += "->";
+                }
+                else{
+                    value = value += "<-";
+                }
                 entity.relations.put(key, value);
             }
             ent.add(entity);
