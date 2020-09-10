@@ -2,6 +2,9 @@ package com.java.zhushuqi.backend;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import org.json.*;
 
 import java.io.BufferedReader;
@@ -10,7 +13,10 @@ import java.io.InputStreamReader;
 import java.net.*;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 public class NewsLoader {
     static String link = "https://covid-dashboard.aminer.cn/api/events/list?type=%s&page=%d&size=%d";
@@ -28,14 +34,16 @@ public class NewsLoader {
         return body;
     }
 
-    public static void GetNews(final int page, final String type, final int size, ArrayList<News> newsl) throws IOException, JSONException {
+    public static ArrayList<News> GetNews(final int page, final String type, final int size) throws IOException, JSONException {
         String URL_String = new String(String.format(link, type, page, size));
         String body = GetContentFromURL(URL_String);
         if (body.equals("")) {
             Log.d("warning", "No message received.");
         }
         JSONObject news_json = new JSONObject(body);
+        ArrayList<News> newsl = new ArrayList<News>();
         GetNewsFromJSON(news_json, newsl);
+        return newsl;
     }
 
     public static void GetNewsFromJSON(JSONObject src, ArrayList<News> newsl) throws JSONException {
