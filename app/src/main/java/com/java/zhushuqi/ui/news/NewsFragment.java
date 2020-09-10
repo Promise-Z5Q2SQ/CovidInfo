@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
@@ -23,28 +24,35 @@ import com.java.zhushuqi.backend.News;
 import io.reactivex.functions.Consumer;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class NewsFragment extends Fragment {
     SearchView mSearchView;
     private ListView mListView;
     private final List<String> mStrings = new ArrayList<>();
+    List<PlaceholderFragment> placeholderFragments = new ArrayList<>();
+    PlaceholderFragment fragment_all = new PlaceholderFragment("all");
+    PlaceholderFragment fragment_news = new PlaceholderFragment("news");
+    PlaceholderFragment fragment_paper = new PlaceholderFragment("paper");
+    SectionsPagerAdapter sectionsPagerAdapter;
+    ViewPager viewPager;
+    View root;
+    public HashMap<String, Boolean> exist = new HashMap<>();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
-        List<PlaceholderFragment> placeholderFragments = new ArrayList<>();
-        PlaceholderFragment fragment_all = new PlaceholderFragment("all");
-        PlaceholderFragment fragment_news = new PlaceholderFragment("news");
-        PlaceholderFragment fragment_paper = new PlaceholderFragment("paper");
         placeholderFragments.add(fragment_all);
         placeholderFragments.add(fragment_news);
         placeholderFragments.add(fragment_paper);
+        exist.put("All", true);
+        exist.put("News", true);
+        exist.put("Paper", true);
 
-        final View root = inflater.inflate(R.layout.fragment_news, container, false);
-        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(root.getContext(),
+        root = inflater.inflate(R.layout.fragment_news, container, false);
+        sectionsPagerAdapter = new SectionsPagerAdapter(root.getContext(),
                 this.requireActivity().getSupportFragmentManager(), placeholderFragments);
-        ViewPager viewPager = root.findViewById(R.id.viewpager);
+        viewPager = root.findViewById(R.id.viewpager);
         viewPager.setOffscreenPageLimit(2);
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = root.findViewById(R.id.tabs);
@@ -72,7 +80,7 @@ public class NewsFragment extends Fragment {
                     public void accept(List<News> currentNews) {
                         fragment_all.mAdapter.data = currentNews;
                         fragment_all.mAdapter.notifyDataSetChanged();
-                        
+
                         System.out.println("Find " + currentNews.size());
                     }
                 });
@@ -105,11 +113,26 @@ public class NewsFragment extends Fragment {
             public void onClick(View view) {
                 Context context = root.getContext();
                 Intent intent = new Intent(context, TabSelectActivity.class);
-                context.startActivity(intent);
+                intent.putExtra("News", exist.get("News"));
+                intent.putExtra("Paper", exist.get("Paper"));
+                startActivityForResult(intent, 0);
             }
         });
         System.out.println("NewsFragment CreatingView…");
         return root;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
+        exist.put("News", data.getBooleanExtra("News", true));
+        exist.put("Paper", data.getBooleanExtra("Paper", true));
+        placeholderFragments = new ArrayList<>();
+        placeholderFragments.add(fragment_all);
+        if (exist.get("News")) placeholderFragments.add(fragment_news);
+        if (exist.get("Paper")) placeholderFragments.add(fragment_paper);
+        sectionsPagerAdapter = new SectionsPagerAdapter(root.getContext(),
+                this.requireActivity().getSupportFragmentManager(), placeholderFragments);
+        viewPager.setAdapter(sectionsPagerAdapter);
     }
 
     @Override

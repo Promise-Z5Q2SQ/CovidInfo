@@ -1,34 +1,40 @@
 package com.java.zhushuqi;
 
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.RecyclerView;
-import com.java.zhushuqi.ui.news.PlaceholderFragment;
+import com.beloo.widget.chipslayoutmanager.ChipsLayoutManager;
 import com.pchmn.materialchips.ChipView;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class TabSelectActivity extends AppCompatActivity {
     private ChipsAdapter mTagsAdapter;
     private RecyclerView mRecyclerView;
-    private LinearLayoutManager mLayoutManager;
-    List<String> tagList = new ArrayList<>();
+    Intent resultIntent = new Intent();
 
     @Override
     protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tab_select_page);
+        Context context = this;
+        Intent intent = getIntent();
         Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.inflateMenu(R.menu.tabpage_toolbar_menu);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -37,54 +43,61 @@ public class TabSelectActivity extends AppCompatActivity {
         });
 
         mRecyclerView = findViewById(R.id.recyclerView);
-        mLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.addItemDecoration(
-                new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         mRecyclerView.setHasFixedSize(true);
-        tagList.add("All");
-        tagList.add("News");
-        tagList.add("Paper");
-        mTagsAdapter = new ChipsAdapter(tagList);
+        mTagsAdapter = new ChipsAdapter(
+                intent.getBooleanExtra("News", true), intent.getBooleanExtra("Paper", true));
         mRecyclerView.setAdapter(mTagsAdapter);
+        ChipsLayoutManager tagsLayoutManager = ChipsLayoutManager.newBuilder(this)
+                .setRowStrategy(ChipsLayoutManager.STRATEGY_CENTER)
+                .withLastRow(true)
+                .build();
+        mRecyclerView.setLayoutManager(tagsLayoutManager);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        toolbar.findViewById(R.id.action_plus).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                List<String> list = mTagsAdapter.unavailableTags();
+                if (list.isEmpty()) return;
+                String[] array = new String[list.size()];
+                list.toArray(array);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("请选择要添加的首页标签").setNegativeButton("取消", null);
+                builder.setItems(array, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        mTagsAdapter.exist.put(array[i], true);
+                        mTagsAdapter.mChips.add(array[i]);
+                        mTagsAdapter.notifyItemInserted(mTagsAdapter.mChips.size() - 1);
+                    }
+                });
+                builder.create().show();
+            }
+        });
     }
 
+    @Override
+    public void onBackPressed() {
+        resultIntent.putExtra("News", mTagsAdapter.exist.get("News"));
+        resultIntent.putExtra("Paper", mTagsAdapter.exist.get("Paper"));
+        setResult(0, resultIntent);
+        super.onBackPressed();
+    }
 
     public static class ChipsAdapter extends RecyclerView.Adapter<ChipsAdapter.ViewHolder> {
-        private final List<String> mChips;
-        private OnRemoveChipListener mOnRemoveChipListener;
-        private OnChipsCountChangeListener mOnChipsCountChangeListener;
-        private int mPinnedChipIndex = -1;
+        public final List<String> mChips;
+        public HashMap<String, Boolean> exist;
 
-        public ChipsAdapter(List<String> list) {
-            mChips = list;
-        }
-
-        public ChipsAdapter(List<String> list, int pinnedChipIndex) {
-            mChips = new ArrayList<String>(list);
-            mPinnedChipIndex = pinnedChipIndex;
-        }
-
-        public void addChip(String chip) {
-            mChips.add(chip);
-            notifyItemInserted(mChips.size() - 1);
-            if (mOnChipsCountChangeListener != null)
-                mOnChipsCountChangeListener.onChipsCountChange(getItemCount());
-        }
-
-        public void removeChip(int position) {
-            mChips.remove(position);
-            notifyItemRemoved(position);
-            if (mOnChipsCountChangeListener != null)
-                mOnChipsCountChangeListener.onChipsCountChange(getItemCount());
-        }
-
-        public void setOnRemoveChipListener(OnRemoveChipListener listener) {
-            mOnRemoveChipListener = listener;
-        }
-
-        public void setOnTagsCountChangeListener(OnChipsCountChangeListener listener) {
-            mOnChipsCountChangeListener = listener;
+        public ChipsAdapter(boolean news, boolean paper) {
+            mChips = new ArrayList<>();
+            mChips.add("All");
+            exist = new HashMap<>();
+            exist.put("All", true);
+            exist.put("News", news);
+            exist.put("Paper", paper);
+            if (news) mChips.add("News");
+            if (paper) mChips.add("Paper");
         }
 
         @NotNull
@@ -95,23 +108,32 @@ public class TabSelectActivity extends AppCompatActivity {
             return viewHolder;
         }
 
+        public List<String> unavailableTags() {
+            List<String> list = new ArrayList<>();
+            if (!exist.get("News")) list.add("News");
+            if (!exist.get("Paper")) list.add("Paper");
+            return list;
+        }
+
         @Override
-        public void onBindViewHolder(@NonNull @NotNull ViewHolder viewHolder, int position) {
-            System.out.println(position + " " + mChips.get(position));
+        public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
+            if (position == 0)
+                viewHolder.mTag.setDeletable(false);
             viewHolder.mTag.setLabel(mChips.get(position));
+            viewHolder.mTag.setOnDeleteClicked(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    exist.put(mChips.get(position), false);
+                    mChips.remove(position);
+                    notifyItemRemoved(position);
+                    notifyItemRangeChanged(position, mChips.size() - position);
+                }
+            });
         }
 
         @Override
         public int getItemCount() {
             return mChips.size();
-        }
-
-        interface OnRemoveChipListener {
-            void onRemoveChip(View view, int position);
-        }
-
-        interface OnChipsCountChangeListener {
-            void onChipsCountChange(int count);
         }
 
         public static class ViewHolder extends RecyclerView.ViewHolder {
