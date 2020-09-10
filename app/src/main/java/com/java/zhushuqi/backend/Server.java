@@ -32,7 +32,7 @@ public class Server {
             } catch (IOException e) {System.out.println("IOException!");}
         } catch (JSONException f) {System.out.println("JSONException!");}
     }
-
+    
     public Server(){
         DataMap = new HashMap<String, Dataset>();
         ScholarInfo = new ArrayList<Scholar>();  //学者信息
