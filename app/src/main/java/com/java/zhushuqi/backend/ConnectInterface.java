@@ -33,7 +33,7 @@ public class ConnectInterface {
             @Override
             public Publisher<News> apply(List<News> Newses) {
                 if (Newses.size() > 0) return Flowable.fromIterable(Newses);
-                return Flowable.fromIterable(Server.server.NewsHistory);//fixme 如果运行了这一句代表网络出现问题没有正常返回
+                return Flowable.fromIterable(Server.server.ViewedHistory);//fixme 如果运行了这一句代表网络出现问题没有正常返回
             }
         }).toList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
@@ -48,18 +48,9 @@ public class ConnectInterface {
             @Override
             public Publisher<News> apply(List<News> Newses) {
                 if (Newses.size() > 0) return Flowable.fromIterable(Newses);
-                return Flowable.fromIterable(Server.server.NewsHistory);//fixme 如果运行了这一句代表网络出现问题没有正常返回
+                return Flowable.fromIterable(Server.server.ViewedHistory);//fixme 如果运行了这一句代表网络出现问题没有正常返回
             }
         }).toList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
-    public static void RenewNews(final int page, final String type, final int size) {
-        Single.fromCallable(new Callable<Object>() {
-            @Override
-            public Object call() throws Exception {
-                Server.server.NewsInShow = NewsLoader.GetNews(page, type, size);
-                return new Object();
-            }
-        }).subscribeOn(Schedulers.io()).subscribe();
-    }
 }
