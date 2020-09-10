@@ -94,7 +94,7 @@ public class PlaceholderFragment extends Fragment {
 
         MyAdapter(String s) {
             name = s;
-            ConnectInterface.GetNews(page, name, size).subscribe(new Consumer<List<News>>() {
+            ConnectInterface.GetCurrentNews(name).subscribe(new Consumer<List<News>>() {
                 @Override
                 public void accept(List<News> currentNews) {
                     data = currentNews;
@@ -142,7 +142,7 @@ public class PlaceholderFragment extends Fragment {
         }
 
         public void loadMore() {
-            ConnectInterface.GetNews(++page, name, size).subscribe(new Consumer<List<News>>() {
+            ConnectInterface.GetLatestNews(name).subscribe(new Consumer<List<News>>() {
                 @Override
                 public void accept(List<News> currentNews) {
                     data = currentNews;
@@ -153,7 +153,7 @@ public class PlaceholderFragment extends Fragment {
         }
 
         public void refreshData() {
-            ConnectInterface.GetNews(page == 0 ? 0 : --page, name, size).subscribe(new Consumer<List<News>>() {
+            ConnectInterface.RetrievePresentNews(name).subscribe(new Consumer<List<News>>() {
                 @Override
                 public void accept(List<News> currentNews) {
                     data = currentNews;
