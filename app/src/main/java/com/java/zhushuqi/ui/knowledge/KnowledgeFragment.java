@@ -1,4 +1,4 @@
-package com.java.zhushuqi.ui.notifications;
+package com.java.zhushuqi.ui.knowledge;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,27 +7,25 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import com.java.zhushuqi.R;
 
-public class NotificationsFragment extends Fragment {
+public class KnowledgeFragment extends Fragment {
 
-    private NotificationsViewModel notificationsViewModel;
+    SearchView mSearchView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        notificationsViewModel =
-                ViewModelProviders.of(this).get(NotificationsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_knowledge, container, false);
-        final TextView textView = root.findViewById(R.id.text_notifications);
-        notificationsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+
+        mSearchView = root.findViewById(R.id.search_view);
+        mSearchView.setIconifiedByDefault(false);
+        mSearchView.setSubmitButtonEnabled(true);
+        mSearchView.setQueryHint("Search for entities…");
+
         return root;
     }
 }

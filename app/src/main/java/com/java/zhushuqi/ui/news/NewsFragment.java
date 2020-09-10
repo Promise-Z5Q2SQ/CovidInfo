@@ -58,8 +58,8 @@ public class NewsFragment extends Fragment {
         TabLayout tabs = root.findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
 
-        mSearchView = root.findViewById(R.id.search_view);
         mListView = root.findViewById(R.id.list_view);
+        mSearchView = root.findViewById(R.id.search_view);
         mSearchView.setIconifiedByDefault(false);
         mSearchView.setSubmitButtonEnabled(true);
         mSearchView.setQueryHint("Search for news…");

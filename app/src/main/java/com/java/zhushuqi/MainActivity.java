@@ -2,17 +2,15 @@ package com.java.zhushuqi;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import com.java.zhushuqi.backend.ConnectInterface;
 import com.java.zhushuqi.backend.News;
-import com.java.zhushuqi.backend.NewsLoader;
 import com.java.zhushuqi.backend.Server;
-import com.java.zhushuqi.ui.dashboard.DashboardFragment;
+import com.java.zhushuqi.ui.data.DataFragment;
 import com.java.zhushuqi.ui.news.NewsFragment;
-import com.java.zhushuqi.ui.notifications.NotificationsFragment;
+import com.java.zhushuqi.ui.knowledge.KnowledgeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
 import io.reactivex.functions.Consumer;
@@ -38,8 +36,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void initView() {
         NewsFragment newsFragment = new NewsFragment();
-        DashboardFragment dashboardFragment = new DashboardFragment();
-        NotificationsFragment notificationsFragment = new NotificationsFragment();
+        DataFragment dashboardFragment = new DataFragment();
+        KnowledgeFragment notificationsFragment = new KnowledgeFragment();
         fragments = new Fragment[]{newsFragment, dashboardFragment, notificationsFragment};
 
         getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, newsFragment).show(newsFragment).commit();

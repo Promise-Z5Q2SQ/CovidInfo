@@ -1,18 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/datasearch"
-        android:layout_width="fill_parent"
-        android:layout_height="90dp"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:elevation="4dp"
+            app:titleTextColor="#fff"
+            android:background="@color/colorPrimary">
+
+        <androidx.appcompat.widget.SearchView
+                android:id="@+id/datasearch"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
         />
+    </androidx.appcompat.widget.Toolbar>
 
     <lecho.lib.hellocharts.view.LineChartView
-        android:id="@+id/line_chart"
-        android:layout_width="380dp"
-        android:layout_height="500dp"
-        android:layout_gravity="right"
-        android:layout_marginBottom="50dp" />
+            android:id="@+id/line_chart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="30dp"
+    />
 </LinearLayout>

@@ -1,25 +1,17 @@
-package com.java.zhushuqi.ui.dashboard;
+package com.java.zhushuqi.ui.data;
 
-import android.content.ContentUris;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 
-import com.java.zhushuqi.HistoryAdapter;
 import com.java.zhushuqi.R;
 import com.java.zhushuqi.backend.ConnectInterface;
 import com.java.zhushuqi.backend.Dataset;
-import com.java.zhushuqi.backend.News;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +28,7 @@ import lecho.lib.hellocharts.model.ValueShape;
 import lecho.lib.hellocharts.model.Viewport;
 import lecho.lib.hellocharts.view.LineChartView;
 
-public class DashboardFragment extends Fragment {
+public class DataFragment extends Fragment {
     public Dataset local_data = null;
     private List<PointValue> Confirmed = new ArrayList<PointValue>();
     private List<PointValue> Cured = new ArrayList<PointValue>();
@@ -44,26 +36,31 @@ public class DashboardFragment extends Fragment {
     private List<PointValue> Suspected = new ArrayList<PointValue>();
     private List<AxisValue> XValues = new ArrayList<AxisValue>();
     private LineChartView linechart;
+
     private void getX() {
         for (int i = 0; i < local_data.data.size(); i++) {
             XValues.add(new AxisValue(i).setLabel(String.valueOf(local_data.data.get(i).timefromstart)));
         }
     }
+
     private void getConfirmed() {
         for (int i = 0; i < local_data.data.size(); i++) {
             Confirmed.add(new PointValue(i, local_data.data.get(i).confirmed));
         }
     }
+
     private void getCured() {
         for (int i = 0; i < local_data.data.size(); i++) {
             Cured.add(new PointValue(i, local_data.data.get(i).cured));
         }
     }
+
     private void getDead() {
         for (int i = 0; i < local_data.data.size(); i++) {
             Dead.add(new PointValue(i, local_data.data.get(i).dead));
         }
     }
+
     private void initLineChart() {
         Line confirmed = new Line(Confirmed).setColor(Color.parseColor("#FFDA3A"));
         Line dead = new Line(Dead).setColor(Color.parseColor("#0000FF"));
@@ -118,10 +115,14 @@ public class DashboardFragment extends Fragment {
         v.right = 9;
         linechart.setCurrentViewport(v);
     }
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_data, container, false);
         SearchView searchView = root.findViewById(R.id.datasearch);
+        searchView.setIconifiedByDefault(false);
+        searchView.setSubmitButtonEnabled(true);
+        searchView.setQueryHint("Input region for data…");
         searchView.setOnQueryTextListener(new androidx.appcompat.widget.SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -129,7 +130,7 @@ public class DashboardFragment extends Fragment {
                     @Override
                     public void accept(Dataset cdataset) {
                         local_data = cdataset;
-                        if(cdataset == null)return;
+                        if (cdataset == null) return;
                         XValues.clear();
                         Confirmed.clear();
                         Cured.clear();

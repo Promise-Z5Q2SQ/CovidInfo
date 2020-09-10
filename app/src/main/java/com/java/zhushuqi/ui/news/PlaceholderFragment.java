@@ -122,6 +122,7 @@ public class PlaceholderFragment extends Fragment {
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Server.server.ViewedHistory.remove(data.get(position));
                     Server.server.ViewedHistory.add(data.get(position));
                     System.out.println(data.get(position).type);
                     System.out.println("History " + Server.server.ViewedHistory.size());

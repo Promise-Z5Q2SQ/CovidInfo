@@ -7,5 +7,7 @@
     <string name="share">Share</string>
     <string name="search">Search</string>
     <string name="plus">Plus</string>
-    <string name="history">history</string>
+    <string name="history">History</string>
+    <string name="properties">Properties</string>
+    <string name="relations">Relations</string>
 </resources>
