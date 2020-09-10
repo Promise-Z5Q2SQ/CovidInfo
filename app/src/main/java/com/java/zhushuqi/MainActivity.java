@@ -31,12 +31,7 @@ public class MainActivity extends AppCompatActivity {
         ConnectInterface.InitServer().subscribe(new Consumer<List<News>>() {
             @Override
             public void accept(List<News> currentNews) {
-                ConnectInterface.InitNews().subscribe(new Consumer<List<News>>() {
-                    @Override
-                    public void accept(List<News> news) throws Exception {
-                        initView();
-                    }
-                });
+                initView();
             }
         });
     }

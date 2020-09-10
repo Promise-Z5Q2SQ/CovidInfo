@@ -200,9 +200,11 @@ public class Server {
         ViewedHistory = new ArrayList<News>();
     }
 
+    /*
     void Search_News(String key){
         for(int i = 0; i < ; i++){
 
         }
     }
+    */
 }
