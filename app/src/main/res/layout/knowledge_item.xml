@@ -29,7 +29,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
-                    android:textSize="15sp"
+                    android:textSize="20sp"
                     android:textColor="#000000"/>
             <TextView
                     android:id="@+id/knowledge_info"
@@ -42,7 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_margin="3dp"
-            android:background="#5f9ea0"/>
+            android:background="@color/colorPrimary"/>
     <TextView
             android:id="@+id/knowledge_properties"
             android:layout_width="wrap_content"
@@ -69,7 +69,7 @@
     <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#5f9ea0"
+            android:background="@color/colorPrimary"
             android:layout_marginTop="10dp"/>
     <TextView
             android:id="@+id/knowledge_relation"
@@ -95,8 +95,8 @@
 
     <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="4dp"
             android:layout_marginTop="20dp"
-            android:background="#5f9ea0"/>
+            android:background="@color/colorPrimary"/>
 </LinearLayout>
 

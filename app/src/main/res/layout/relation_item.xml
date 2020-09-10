@@ -13,7 +13,8 @@
         android:stateListAnimator="@drawable/anim_item_news"
         app:cardCornerRadius="2dp"
         app:cardElevation="2dp"
-        app:contentPadding="8dp">
+        app:contentPadding="8dp"
+        android:id="@+id/card_view">
 
     <LinearLayout
             android:layout_width="match_parent"
