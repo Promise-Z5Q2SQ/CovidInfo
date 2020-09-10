@@ -7,6 +7,9 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.ArrayDeque;
 import java.util.HashSet;
@@ -15,6 +18,7 @@ public class Server {
     public static Server server;
     public HashMap<String, Dataset> DataMap;
     public ArrayList<Scholar> ScholarInfo;      //学者信息
+    public ArrayList<Scholar> P_Scholar;        //已故学者信息
     public ArrayList<News> NewsInShow;          //正出现在浏览界面的新闻（20）
     public ArrayList<News> P_NewsInShow;        //正出现在浏览界面的新闻（20）
     public ArrayList<News> N_NewsInShow;        //正出现在浏览界面的新闻（20）
@@ -36,6 +40,17 @@ public class Server {
         try {
             try {
                 ScholarInfo = ScholarLoader.GetScholar(ScholarInfo);
+                for(Scholar sc: ScholarInfo){
+                    if(sc.is_passedaway == true){
+                        P_Scholar.add(sc);
+                    }
+                }
+                Collections.sort(ScholarInfo, new Comparator<Scholar>() {
+                    @Override
+                    public int compare(Scholar scholar, Scholar t1) {
+                        return t1.num_viewed - scholar.num_followed;
+                    }
+                });
             } catch (IOException e) {System.out.println("IOException!");}
         } catch (JSONException f) {System.out.println("JSONException!");}
     }

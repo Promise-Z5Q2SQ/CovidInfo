@@ -237,4 +237,32 @@ public class ConnectInterface {
             }
         }).toList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
+
+    public static Single<List<Scholar>> GetScholar() {
+        return Flowable.fromCallable(new Callable<List<Scholar>>() {
+            @Override
+            public List<Scholar> call() throws Exception {
+                return Server.server.ScholarInfo;
+            }
+        }).flatMap(new Function<List<Scholar>, Publisher<Scholar>>() {
+            @Override
+            public Publisher<Scholar> apply(List<Scholar> entities) {
+                return Flowable.fromIterable(entities);//fixme 如果运行了这一句代表网络出现问题没有正常返回
+            }
+        }).toList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public static Single<List<Scholar>> GetP_Scholar() {
+        return Flowable.fromCallable(new Callable<List<Scholar>>() {
+            @Override
+            public List<Scholar> call() throws Exception {
+                return Server.server.P_Scholar;
+            }
+        }).flatMap(new Function<List<Scholar>, Publisher<Scholar>>() {
+            @Override
+            public Publisher<Scholar> apply(List<Scholar> entities) {
+                return Flowable.fromIterable(entities);//fixme 如果运行了这一句代表网络出现问题没有正常返回
+            }
+        }).toList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
 }
