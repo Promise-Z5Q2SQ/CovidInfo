@@ -1,5 +1,6 @@
 package com.java.zhushuqi.backend;
 
+import android.graphics.BitmapFactory;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -9,6 +10,7 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -37,13 +39,13 @@ public class EntityLoader {
             Log.d("warning", "No message received.");
         }
         JSONObject news_json = new JSONObject(body);
-        return(GetEntityFromJSON(news_json));
+        return (GetEntityFromJSON(news_json));
     }
 
-    public static ArrayList<Entity> GetEntityFromJSON(JSONObject src) throws JSONException{
+    public static ArrayList<Entity> GetEntityFromJSON(JSONObject src) throws JSONException, IOException {
         ArrayList<Entity> ent = new ArrayList<Entity>();
         JSONArray arr = src.optJSONArray("data");
-        for(int i = 0; i < arr.length(); i++){
+        for (int i = 0; i < arr.length(); i++) {
             Entity entity = new Entity();
             JSONObject obj = arr.optJSONObject(i);
             entity.hot = obj.optDouble("hot");
@@ -53,24 +55,30 @@ public class EntityLoader {
             entity.enwiki = abstractinfo.optString("enwiki");
             entity.baidu = abstractinfo.optString("baidu");
             entity.zhwiki = abstractinfo.optString("zhwiki");
+            String imgURL = obj.optString("img");
+            if (imgURL.equals("null"))
+                entity.img = null;
+            else {
+                URL url = new URL(imgURL);
+                entity.img = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+            }
             JSONObject covid = abstractinfo.optJSONObject("COVID");
             JSONObject prop = covid.optJSONObject("properties");
             JSONArray rel = covid.optJSONArray("relations");
             Iterator<String> iterator = prop.keys();
             String key = "", value = "";
-            while(iterator.hasNext()) {
+            while (iterator.hasNext()) {
                 key = (String) iterator.next();
                 value = prop.optString(key);
                 entity.properties.put(key, value);
             }
-            for(int j = 0; j < rel.length(); j++){
+            for (int j = 0; j < rel.length(); j++) {
                 JSONObject jj = rel.optJSONObject(j);
                 key = jj.optString("label");
                 value = jj.optString("relation");
-                if(jj.optString("forward").equals("true")){
+                if (jj.optString("forward").equals("true")) {
                     value = value += "->";
-                }
-                else{
+                } else {
                     value = value += "<-";
                 }
                 entity.relations.put(key, value);

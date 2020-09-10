@@ -48,62 +48,6 @@ public class NewsPageActivity extends AppCompatActivity {
         toolbar.findViewById(R.id.action_share).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent share = new Intent(android.content.Intent.ACTION_SEND);
-                share.setType("image/*");
-                PackageManager packageManager = getPackageManager();
-                List<ResolveInfo> list = packageManager.queryIntentActivities(share, 0);
-                System.out.println(list.size());
-                for (ResolveInfo info : list) {
-                    System.out.println("" + info.activityInfo.packageName + "---" + info.activityInfo.name);
-                }
-                Intent sendIntent = new Intent();
-                sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TITLE, title);
-                sendIntent.putExtra(Intent.EXTRA_SUBJECT, "主题信息");
-                sendIntent.putExtra(Intent.EXTRA_TEXT, content);
-                File f = new File("app/src/main/res/drawable/misaka.png");
-                if ((f != null) && (f.exists()) && (f.isFile())) {
-                    System.out.println(11111);
-                    intent.setType("image/png");
-                    intent.putExtra(Intent.EXTRA_STREAM, Uri.parse("app/src/main/res/drawable/misaka.png"));
-                }
-                sendIntent.putExtra(Intent.EXTra_, shareContent+shareUrl);
-                sendIntent.setClassName("com.tencent.mm", "com.tencent.mm.ui.tools.ShareToTimeLineUI");//微信朋友圈，仅支持分享图片
-                sendIntent.setType("image/*");
-//   sendIntent.setClassName("com.tencent.mm", "com.tencent.mm.ui.tools.ShareImgUI");//微信朋友
-//   sendIntent.setClassName("com.tencent.mobileqq", "cooperation.qqfav.widget.QfavJumpActivity");//保存到QQ收藏
-//   sendIntent.setClassName("com.tencent.mobileqq", "cooperation.qlink.QlinkShareJumpActivity");//QQ面对面快传
-//   sendIntent.setClassName("com.tencent.mobileqq", "com.tencent.mobileqq.activity.qfileJumpActivity");//传给我的电脑
-//
-//   sendIntent.setClassName("com.tencent.mm", "com.tencent.mm.ui.tools.ShareToTimeLineUI");//微信朋友圈，仅支持分享图片
-                //sendIntent.setClassName("com.android.bluetooth", "com.android.bluetooth.opp.BluetoothOppLauncherActivity");
-                startActivity(sendIntent);
-                /*ntent share = new Intent(android.content.Intent.ACTION_SEND);
-                share.setType("text/plain");
-                PackageManager packageManager = getPackageManager();
-                List<Intent> intentlist = new ArrayList<Intent>();
-                List<ResolveInfo> list = packageManager.queryIntentActivities(share, 0);
-                System.out.println(list);
-                if(!list.isEmpty()){
-                    for(ResolveInfo info:list){
-                        ActivityInfo activityInfo = info.activityInfo;
-                        /*if (activityInfo.packageName.contains("email")
-                                || activityInfo.packageName.contains("bluetooth")
-                                || activityInfo.packageName.contains("mms")
-                                || activityInfo.packageName.contains("weibo")) {*/
-                            //Intent target = new Intent(Intent.ACTION_SEND);
-                            //target.setType("text/plain");
-                            //target.putExtra(Intent.EXTRA_TITLE, title);
-                            //target.putExtra(Intent.EXTRA_SUBJECT, "subject");
-                            //target.putExtra(Intent.EXTRA_TEXT, content);
-                            //target.setPackage(activityInfo.packageName);
-                            //intentlist.add(target);
-                        //}
-                    //}
-                    //Intent chooser = Intent.createChooser(intentlist.remove(1), "选择APP");
-                    //chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, intentlist.toArray(new Parcelable[] {}));
-                    //startActivity(chooser);
-                //}
             }
         });
         TextView textView_title = findViewById(R.id.text_title);
