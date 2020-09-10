@@ -40,7 +40,6 @@ public class PlaceholderFragment extends Fragment {
     private LinearLayoutManager mLayoutManager;
     View root;
 
-
     PlaceholderFragment(String name) {
         this.name = name;
     }
@@ -89,10 +88,12 @@ public class PlaceholderFragment extends Fragment {
     public static class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         public List<News> data = new ArrayList<>();
         private final String name;
+        private int page = 4;
+        private final int size = 20;
 
         MyAdapter(String s) {
             name = s;
-            ConnectInterface.GetCurrentNews(name).subscribe(new Consumer<List<News>>() {
+            ConnectInterface.GetNews(page, name, size).subscribe(new Consumer<List<News>>() {
                 @Override
                 public void accept(List<News> currentNews) {
                     data = currentNews;
@@ -139,7 +140,7 @@ public class PlaceholderFragment extends Fragment {
         }
 
         public void loadMore() {
-            ConnectInterface.RetrievePresentNews(name).subscribe(new Consumer<List<News>>() {
+            ConnectInterface.GetNews(++page, name, size).subscribe(new Consumer<List<News>>() {
                 @Override
                 public void accept(List<News> currentNews) {
                     data = currentNews;
@@ -150,7 +151,14 @@ public class PlaceholderFragment extends Fragment {
         }
 
         public void refreshData() {
-            ConnectInterface.GetLatestNews(name).subscribe(new Consumer<List<News>>() {
+            int p;
+            if(page == 0){
+                p = 0;
+            }
+            else{
+                p = --page;
+            }
+            ConnectInterface.GetNews(p, name, size).subscribe(new Consumer<List<News>>() {
                 @Override
                 public void accept(List<News> currentNews) {
                     data = currentNews;
