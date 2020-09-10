@@ -223,4 +223,18 @@ public class ConnectInterface {
             }
         }).toList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
+
+    public static Single<List<Entity>> GetEntities(final String name) {
+        return Flowable.fromCallable(new Callable<List<Entity>>() {
+            @Override
+            public List<Entity> call() throws Exception {
+                return EntityLoader.GetEntity(name);
+            }
+        }).flatMap(new Function<List<Entity>, Publisher<Entity>>() {
+            @Override
+            public Publisher<Entity> apply(List<Entity> entities) {
+                return Flowable.fromIterable(entities);//fixme 如果运行了这一句代表网络出现问题没有正常返回
+            }
+        }).toList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
 }

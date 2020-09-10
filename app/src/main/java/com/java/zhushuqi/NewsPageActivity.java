@@ -48,6 +48,17 @@ public class NewsPageActivity extends AppCompatActivity {
         toolbar.findViewById(R.id.action_share).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent share = new Intent(android.content.Intent.ACTION_SEND);
+                share.setType("text/plain");
+                PackageManager packageManager = getPackageManager();
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TITLE, title);
+                sendIntent.putExtra(Intent.EXTRA_SUBJECT, "主题信息");
+                String zhaiyao = "摘要：" + title;
+                sendIntent.putExtra(Intent.EXTRA_TEXT, zhaiyao + "\n" + content);
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);
             }
         });
         TextView textView_title = findViewById(R.id.text_title);

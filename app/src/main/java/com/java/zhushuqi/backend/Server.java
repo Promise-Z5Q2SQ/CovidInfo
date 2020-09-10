@@ -5,6 +5,7 @@ import android.view.View;
 import org.json.JSONException;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ArrayDeque;
@@ -21,6 +22,7 @@ public class Server {
     public ArrayList<News> SearchAnswer;        //搜索结果
     public ArrayList<News> ViewedHistory;       //浏览记录
     public ArrayList<String> WordsHistory;      //搜索历史记录
+    public ArrayList<Entity> Entities;          //用于图谱的数据集
     public int news_page = 4;
     public int N_news_page = 4;
     public int P_news_page = 4;
@@ -203,6 +205,7 @@ public class Server {
         SearchAnswer = new ArrayList<News>();       //搜索结果
         WordsHistory = new ArrayList<String>();     //搜索历史记录
         ViewedHistory = new ArrayList<News>();
+        Entities = new ArrayList<Entity>();
     }
 
     void Search_News(String key){
