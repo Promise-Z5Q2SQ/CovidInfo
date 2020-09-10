@@ -209,7 +209,7 @@ public class Server {
         SearchAnswer.clear();
         for(News n:SearchPool){
             for(int i = 0; i < n.title.length() - key.length(); i++){
-                if(n.title.substring(i, key.length()).equals(key)){
+                if(n.title.substring(i, i + key.length()).equals(key)){
                     SearchAnswer.add(n);
                     break;
                 }

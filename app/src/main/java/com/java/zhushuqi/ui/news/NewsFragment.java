@@ -18,6 +18,9 @@ import com.java.zhushuqi.NewsPageActivity;
 import com.java.zhushuqi.R;
 import com.google.android.material.tabs.TabLayout;
 import com.java.zhushuqi.TabSelectActivity;
+import com.java.zhushuqi.backend.ConnectInterface;
+import com.java.zhushuqi.backend.News;
+import io.reactivex.functions.Consumer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,6 +67,15 @@ public class NewsFragment extends Fragment {
                         context, mStrings, mSearchView);
                 mListView.setAdapter(historyAdapter);
                 mListView.setVisibility(4);
+                ConnectInterface.GetSearchAnswer(query).subscribe(new Consumer<List<News>>() {
+                    @Override
+                    public void accept(List<News> currentNews) {
+                        fragment_all.mAdapter.data = currentNews;
+                        fragment_all.mAdapter.notifyDataSetChanged();
+                        
+                        System.out.println("Find " + currentNews.size());
+                    }
+                });
                 System.out.println("searching " + query);
                 return false;
             }
@@ -96,7 +108,6 @@ public class NewsFragment extends Fragment {
                 context.startActivity(intent);
             }
         });
-
         System.out.println("NewsFragment CreatingView…");
         return root;
     }

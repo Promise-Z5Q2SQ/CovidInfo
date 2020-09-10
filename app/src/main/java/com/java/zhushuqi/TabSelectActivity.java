@@ -96,8 +96,9 @@ public class TabSelectActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull @NotNull ViewHolder holder, int position) {
-            holder.mTag.setLabel(mChips.get(position));
+        public void onBindViewHolder(@NonNull @NotNull ViewHolder viewHolder, int position) {
+            System.out.println(position + " " + mChips.get(position));
+            viewHolder.mTag.setLabel(mChips.get(position));
         }
 
         @Override

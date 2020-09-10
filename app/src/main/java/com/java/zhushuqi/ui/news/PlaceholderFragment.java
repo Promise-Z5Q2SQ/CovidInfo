@@ -36,7 +36,7 @@ import java.util.Objects;
 public class PlaceholderFragment extends Fragment {
     private String name;
     private RecyclerView mRecyclerView;
-    private MyAdapter mAdapter;
+    public MyAdapter mAdapter;
     private SmartRefreshLayout mRefreshLayout;
     private LinearLayoutManager mLayoutManager;
     View root;
@@ -89,8 +89,6 @@ public class PlaceholderFragment extends Fragment {
     public static class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         public List<News> data = new ArrayList<>();
         private final String name;
-        private int page = 4;
-        private final int size = 20;
 
         MyAdapter(String s) {
             name = s;
