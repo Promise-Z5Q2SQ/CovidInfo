@@ -114,7 +114,7 @@ public class PlaceholderFragment extends Fragment {
         public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
             viewHolder.mTextView_title.setText(data.get(position).title);
             if (data.get(position).viewed)
-                viewHolder.mTextView_title.setTextColor(Color.rgb(125, 125, 125));
+                viewHolder.mTextView_title.setTextColor(Color.rgb(150, 150, 150));
             else
                 viewHolder.mTextView_title.setTextColor(Color.rgb(0, 0, 0));
             viewHolder.mTextView_source.setText(data.get(position).source);

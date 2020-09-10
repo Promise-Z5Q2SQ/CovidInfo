@@ -11,6 +11,8 @@
             android:theme="@style/AppTheme">
         <activity android:name=".NewsPageActivity">
         </activity>
+        <activity android:name=".TabSelectActivity">
+        </activity>
         <activity
                 android:name=".MainActivity"
                 android:label="@string/app_name">
