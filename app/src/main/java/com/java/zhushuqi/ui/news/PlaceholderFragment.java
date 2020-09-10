@@ -27,6 +27,7 @@ import com.scwang.smart.refresh.layout.constant.SpinnerStyle;
 import com.scwang.smart.refresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
 import io.reactivex.functions.Consumer;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -105,14 +106,14 @@ public class PlaceholderFragment extends Fragment {
 
         @NonNull
         @Override
-        public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+        public ViewHolder onCreateViewHolder(@NotNull ViewGroup viewGroup, int viewType) {
             View root = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.news_item, viewGroup, false);
             ViewHolder viewHolder = new ViewHolder(root);
             return viewHolder;
         }
 
         @Override
-        public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
+        public void onBindViewHolder(@NotNull final ViewHolder viewHolder, final int position) {
             viewHolder.mTextView_title.setText(data.get(position).title);
             if (data.get(position).viewed)
                 viewHolder.mTextView_title.setTextColor(Color.rgb(150, 150, 150));
@@ -123,10 +124,11 @@ public class PlaceholderFragment extends Fragment {
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    System.out.println(data.get(position).type);
                     Context context = viewHolder.itemView.getContext();
                     Intent intent = new Intent(context, NewsPageActivity.class);
-                    intent.putExtra("title",data.get(position).title);
-                    intent.putExtra("content",data.get(position).content);
+                    intent.putExtra("title", data.get(position).title);
+                    intent.putExtra("content", data.get(position).content);
                     context.startActivity(intent);
                     data.get(position).viewed = true;
                     notifyDataSetChanged();
@@ -151,14 +153,7 @@ public class PlaceholderFragment extends Fragment {
         }
 
         public void refreshData() {
-            int p;
-            if(page == 0){
-                p = 0;
-            }
-            else{
-                p = --page;
-            }
-            ConnectInterface.GetNews(p, name, size).subscribe(new Consumer<List<News>>() {
+            ConnectInterface.GetNews(page == 0 ? 0 : --page, name, size).subscribe(new Consumer<List<News>>() {
                 @Override
                 public void accept(List<News> currentNews) {
                     data = currentNews;
