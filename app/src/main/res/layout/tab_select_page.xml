@@ -10,7 +10,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:elevation="4dp"
-            app:title="标签增减"
+            app:title="Setting"
             app:navigationIcon="@drawable/ic_home_black_24dp"
             app:titleTextColor="#fff"
             android:background="@color/colorPrimary"

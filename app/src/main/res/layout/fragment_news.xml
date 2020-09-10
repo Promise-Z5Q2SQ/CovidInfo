@@ -84,7 +84,7 @@
             android:layout_gravity="end|bottom"
             android:layout_margin="15dp"
             app:fabSize="auto"
-            android:src="@drawable/ic_tab_black_24dp"
+            android:src="@drawable/ic_setting_black_24dp"
             android:backgroundTint="@color/colorPrimary"
     />
 

@@ -6,4 +6,6 @@
     <string name="welcome">WelcomePage</string>
     <string name="share">Share</string>
     <string name="search">Search</string>
+    <string name="plus">Plus</string>
+    <string name="history">history</string>
 </resources>

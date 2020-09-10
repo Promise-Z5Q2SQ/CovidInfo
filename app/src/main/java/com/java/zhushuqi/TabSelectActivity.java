@@ -75,6 +75,14 @@ public class TabSelectActivity extends AppCompatActivity {
                 builder.create().show();
             }
         });
+
+        toolbar.findViewById(R.id.action_history).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, HistoryActivity.class);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
