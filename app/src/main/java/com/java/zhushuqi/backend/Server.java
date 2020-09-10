@@ -40,11 +40,12 @@ public class Server {
     public void InitNews() {//打开应用时刷新新闻列表
         try {
             try {
-                NewsLoader.GetNews(news_page, "all", 10, NewsInShow);
-                news_page -= 1;
-                NewsLoader.GetNews(news_page, "all", 10, NewsInShow);
-                //NewsLoader.GetNews(1, "news", 20, NewsFromNewsInShow);
-                //NewsLoader.GetNews(1, "paper", 20, NewsFromPaperInShow);
+                NewsLoader.GetNews(news_page, "all", 20, NewsInShow);
+                news_page *= 2;
+                NewsLoader.GetNews(N_news_page, "news", 20, N_NewsInShow);
+                N_news_page *= 2;
+                NewsLoader.GetNews(P_news_page, "paper", 20, P_NewsInShow);
+                P_news_page *= 2;
             } catch (IOException e) {System.out.println("IOException!");e.printStackTrace();
             }
         } catch (JSONException f) {System.out.println("JSONException!");
@@ -201,4 +202,10 @@ public class Server {
         WordsHistory = new ArrayList<String>();  //搜索历史记录
         ViewedHistory = new ArrayList<News>();
     }
+
+    /*void Search_News(String key){
+        for(int i = 0; i < ; i++){
+
+        }
+    }*/
 }

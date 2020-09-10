@@ -10,7 +10,7 @@ import androidx.appcompat.widget.Toolbar;
 import java.util.Objects;
 
 public class NewsPageActivity extends AppCompatActivity {
-
+    public int counter = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

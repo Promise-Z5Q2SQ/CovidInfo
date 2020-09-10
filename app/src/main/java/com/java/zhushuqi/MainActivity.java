@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import com.java.zhushuqi.backend.ConnectInterface;
 import com.java.zhushuqi.backend.News;
+import com.java.zhushuqi.backend.NewsLoader;
 import com.java.zhushuqi.backend.Server;
 import com.java.zhushuqi.ui.dashboard.DashboardFragment;
 import com.java.zhushuqi.ui.news.NewsFragment;

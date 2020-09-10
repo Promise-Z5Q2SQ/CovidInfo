@@ -15,7 +15,9 @@ import io.reactivex.schedulers.Schedulers;
 import org.reactivestreams.*;
 
 public class ConnectInterface {
-
+    public static boolean inited_A = false;
+    public static boolean inited_N = false;
+    public static boolean inited_P = false;
     @RequiresApi(api = Build.VERSION_CODES.N)
 
     //初始化新闻列表
@@ -25,8 +27,63 @@ public class ConnectInterface {
             public List<News> call() throws Exception {
                 try {
                     Server.server.InitServer();
+                    return Server.server.NewsInShow;
+                } catch (Exception e) {
+                    return new ArrayList<News>();
+                }
+            }
+        }).flatMap(new Function<List<News>, Publisher<News>>() {
+            @Override
+            public Publisher<News> apply(List<News> Newses) {
+                if (Newses.size() > 0) return Flowable.fromIterable(Newses);
+                return Flowable.fromIterable(Server.server.NewsHistory);//fixme 如果运行了这一句代表网络出现问题没有正常返回
+            }
+        }).toList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public static Single<List<News>> InitNews() {
+        return Flowable.fromCallable(new Callable<List<News>>() {
+            @Override
+            public List<News> call() throws Exception {
+                try {
                     Server.server.InitNews();
+                    return Server.server.NewsInShow;
+                } catch (Exception e) {
+                    return new ArrayList<News>();
+                }
+            }
+        }).flatMap(new Function<List<News>, Publisher<News>>() {
+            @Override
+            public Publisher<News> apply(List<News> Newses) {
+                if (Newses.size() > 0) return Flowable.fromIterable(Newses);
+                return Flowable.fromIterable(Server.server.NewsHistory);//fixme 如果运行了这一句代表网络出现问题没有正常返回
+            }
+        }).toList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+    public static Single<List<News>> InitNews_N() {
+        return Flowable.fromCallable(new Callable<List<News>>() {
+            @Override
+            public List<News> call() throws Exception {
+                try {
                     Server.server.InitNews_N();
+                    return Server.server.NewsInShow;
+                } catch (Exception e) {
+                    return new ArrayList<News>();
+                }
+            }
+        }).flatMap(new Function<List<News>, Publisher<News>>() {
+            @Override
+            public Publisher<News> apply(List<News> Newses) {
+                if (Newses.size() > 0) return Flowable.fromIterable(Newses);
+                return Flowable.fromIterable(Server.server.NewsHistory);//fixme 如果运行了这一句代表网络出现问题没有正常返回
+            }
+        }).toList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+    public static Single<List<News>> InitNews_P() {
+        return Flowable.fromCallable(new Callable<List<News>>() {
+            @Override
+            public List<News> call() throws Exception {
+                try {
                     Server.server.InitNews_P();
                     return Server.server.NewsInShow;
                 } catch (Exception e) {
@@ -42,6 +99,7 @@ public class ConnectInterface {
         }).toList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
+
     //获取当前要显示的新闻
     public static Single<List<News>> GetCurrentNews(final String type) {
         return Flowable.fromCallable(new Callable<List<News>>() {
@@ -49,6 +107,10 @@ public class ConnectInterface {
             public List<News> call() throws Exception {
                 if(type.equals("all")){
                     try {
+                        if(!inited_A) {
+                            InitNews();
+                            inited_A = true;
+                        }
                         return Server.server.NewsInShow;
                     } catch (Exception e) {
                         System.out.println("Ex");
@@ -57,6 +119,11 @@ public class ConnectInterface {
                 }
                 else if(type.equals("news")){
                     try {
+                        if(!inited_N)
+                        {
+                            InitNews_N();
+                            inited_N = true;
+                        }
                         return Server.server.N_NewsInShow;
                     } catch (Exception e) {
                         System.out.println("Ex");
@@ -65,6 +132,10 @@ public class ConnectInterface {
                 }
                 else if(type.equals("paper")){
                     try {
+                        if(!inited_P){
+                            InitNews_P();
+                            inited_P = true;
+                        }
                         return Server.server.P_NewsInShow;
                     } catch (Exception e) {
                         System.out.println("Ex");

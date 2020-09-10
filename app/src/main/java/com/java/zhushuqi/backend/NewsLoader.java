@@ -39,17 +39,18 @@ public class NewsLoader {
     }
 
     public static void GetNewsFromJSON(JSONObject src, ArrayList<News> newsl) throws JSONException {
-        JSONArray list;
+        JSONArray list, authorlist;
+        JSONObject obj, author;
         list = src.optJSONArray("data");
         for (int i = list.length() - 1; i >= 0; i--) {
             News news = new News();
-            JSONObject obj = list.getJSONObject(i);//这一页里的第i条新闻
+            obj = list.getJSONObject(i);//这一页里的第i条新闻
             news.id = obj.optString("_id");
             news.author = "";
-            JSONArray authorlist = obj.optJSONArray("authors");
+            authorlist = obj.optJSONArray("authors");
             if (authorlist != null) {
                 for (int j = 0; j < authorlist.length(); i++) {
-                    JSONObject author = authorlist.getJSONObject(j);//取出作者
+                    author = authorlist.getJSONObject(j);//取出作者
                     news.author = news.author + " " + author.optString("name");//用空格分隔各作者的名字
                 }
             }
@@ -87,17 +88,18 @@ public class NewsLoader {
 
     public static void RetrieveNewsFromJSON(JSONObject src, ArrayList<News> newsl) throws JSONException{
         JSONArray list;
-        JSONObject obj;
+        JSONObject obj, author;
+        JSONArray authorlist;
         list = src.optJSONArray("data");
         for (int i = 0; i < list.length(); i++) {
             News news = new News();
             obj = list.getJSONObject(i);//这一页里的第i条新闻
             news.id = obj.optString("_id");
             news.author = "";
-            JSONArray authorlist = obj.optJSONArray("authors");
+            authorlist = obj.optJSONArray("authors");
             if (authorlist != null) {
                 for (int j = 0; j < authorlist.length(); i++) {
-                    JSONObject author = authorlist.getJSONObject(j);//取出作者
+                    author = authorlist.getJSONObject(j);//取出作者
                     news.author = news.author + " " + author.optString("name");//用空格分隔各作者的名字
                 }
             }
@@ -119,7 +121,8 @@ public class NewsLoader {
         int num = 10;
         String id = "";
         JSONArray list;
-        JSONObject obj;
+        JSONObject obj, author;
+        JSONArray authorlist;
         list = src.optJSONArray("data");
         for (int i = 0; i < list.length(); i++){
             obj = list.getJSONObject(i);
@@ -134,10 +137,10 @@ public class NewsLoader {
             obj = list.getJSONObject(i);//这一页里的第i条新闻
             news.id = obj.optString("_id");
             news.author = "";
-            JSONArray authorlist = obj.optJSONArray("authors");
+            authorlist = obj.optJSONArray("authors");
             if (authorlist != null) {
                 for (int j = 0; j < authorlist.length(); i++) {
-                    JSONObject author = authorlist.getJSONObject(j);//取出作者
+                    author = authorlist.getJSONObject(j);//取出作者
                     news.author = news.author + " " + author.optString("name");//用空格分隔各作者的名字
                 }
             }
