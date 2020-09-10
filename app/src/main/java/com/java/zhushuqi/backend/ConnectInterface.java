@@ -66,7 +66,7 @@ public class ConnectInterface {
             public List<News> call() throws Exception {
                 try {
                     Server.server.InitNews_N();
-                    return Server.server.NewsInShow;
+                    return Server.server.N_NewsInShow;
                 } catch (Exception e) {
                     return new ArrayList<News>();
                 }
@@ -85,7 +85,7 @@ public class ConnectInterface {
             public List<News> call() throws Exception {
                 try {
                     Server.server.InitNews_P();
-                    return Server.server.NewsInShow;
+                    return Server.server.P_NewsInShow;
                 } catch (Exception e) {
                     return new ArrayList<News>();
                 }
@@ -107,10 +107,12 @@ public class ConnectInterface {
             public List<News> call() throws Exception {
                 if(type.equals("all")){
                     try {
-                        if(!inited_A) {
-                            InitNews();
+                        if(inited_A == false) {
+                            Server.server.InitNews();
+                            System.out.println("finish");
                             inited_A = true;
                         }
+                        System.out.println("A_size = " + Server.server.NewsInShow.size());
                         return Server.server.NewsInShow;
                     } catch (Exception e) {
                         System.out.println("Ex");
@@ -119,11 +121,13 @@ public class ConnectInterface {
                 }
                 else if(type.equals("news")){
                     try {
-                        if(!inited_N)
+                        if(inited_N == false)
                         {
-                            InitNews_N();
+                            Server.server.InitNews_N();
+                            System.out.println("finish");
                             inited_N = true;
                         }
+                        System.out.println("N_size = " + Server.server.N_NewsInShow.size());
                         return Server.server.N_NewsInShow;
                     } catch (Exception e) {
                         System.out.println("Ex");
@@ -132,10 +136,12 @@ public class ConnectInterface {
                 }
                 else if(type.equals("paper")){
                     try {
-                        if(!inited_P){
-                            InitNews_P();
+                        if(inited_P == false){
+                            Server.server.InitNews_P();
+                            System.out.println("finish");
                             inited_P = true;
                         }
+                        System.out.println("P_size = " + Server.server.P_NewsInShow.size());
                         return Server.server.P_NewsInShow;
                     } catch (Exception e) {
                         System.out.println("Ex");
