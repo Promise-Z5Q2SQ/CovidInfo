@@ -122,7 +122,9 @@ public class PlaceholderFragment extends Fragment {
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Server.server.ViewedHistory.add(data.get(position));
                     System.out.println(data.get(position).type);
+                    System.out.println("History " + Server.server.ViewedHistory.size());
                     Context context = viewHolder.itemView.getContext();
                     Intent intent = new Intent(context, NewsPageActivity.class);
                     intent.putExtra("title", data.get(position).title);

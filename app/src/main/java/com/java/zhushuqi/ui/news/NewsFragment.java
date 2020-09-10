@@ -80,7 +80,6 @@ public class NewsFragment extends Fragment {
                     public void accept(List<News> currentNews) {
                         fragment_all.mAdapter.data = currentNews;
                         fragment_all.mAdapter.notifyDataSetChanged();
-
                         System.out.println("Find " + currentNews.size());
                     }
                 });
