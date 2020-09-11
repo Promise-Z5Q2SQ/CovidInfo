@@ -66,24 +66,24 @@ public class DataFragment extends Fragment {
         Line dead = new Line(Dead).setColor(Color.parseColor("#0000FF"));
         Line cured = new Line(Cured).setColor(Color.parseColor("#00FF00"));
         List<Line> lines = new ArrayList<Line>();
-        confirmed.setShape(ValueShape.DIAMOND);//折线图上每个数据点的形状（有三种 ：ValueShape.SQUARE  ValueShape.CIRCLE  ValueShape.DIAMOND）
-        confirmed.setCubic(false);//曲线是否平滑，即是曲线还是折线
-        confirmed.setFilled(false);//是否填充曲线的面积
-        confirmed.setHasLabelsOnlyForSelected(true);//点击数据坐标提示数据（设置了这个line.setHasLabels(true);就无效）
+        confirmed.setShape(ValueShape.DIAMOND);
+        confirmed.setCubic(false);
+        confirmed.setFilled(true);
+        confirmed.setHasLabelsOnlyForSelected(true);
         confirmed.setPointRadius(1);
         confirmed.setStrokeWidth(1);
         lines.add(confirmed);
-        dead.setShape(ValueShape.CIRCLE);//折线图上每个数据点的形状（有三种 ：ValueShape.SQUARE  ValueShape.CIRCLE  ValueShape.DIAMOND）
-        dead.setCubic(false);//曲线是否平滑，即是曲线还是折线
-        dead.setFilled(false);//是否填充曲线的面积
-        dead.setHasLabelsOnlyForSelected(true);//点击数据坐标提示数据（设置了这个line.setHasLabels(true);就无效）
+        dead.setShape(ValueShape.CIRCLE);
+        dead.setCubic(false);
+        dead.setFilled(true);
+        dead.setHasLabelsOnlyForSelected(true);
         dead.setPointRadius(1);
         dead.setStrokeWidth(1);
         lines.add(dead);
-        cured.setShape(ValueShape.DIAMOND);//折线图上每个数据点的形状（有三种 ：ValueShape.SQUARE  ValueShape.CIRCLE  ValueShape.DIAMOND）
-        cured.setCubic(false);//曲线是否平滑，即是曲线还是折线
-        cured.setFilled(false);//是否填充曲线的面积
-        cured.setHasLabelsOnlyForSelected(true);//点击数据坐标提示数据（设置了这个line.setHasLabels(true);就无效）
+        cured.setShape(ValueShape.SQUARE);
+        cured.setCubic(false);
+        cured.setFilled(true);
+        cured.setHasLabelsOnlyForSelected(true);
         cured.setPointRadius(1);
         cured.setStrokeWidth(1);
         lines.add(cured);
