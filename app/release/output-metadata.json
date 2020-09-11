@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "com.java.zhushuqi",
+  "variantName": "release",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "properties": [],
+      "versionCode": 6,
+      "versionName": "6.66",
+      "enabled": true,
+      "outputFile": "CovidInfo.apk"
+    }
+  ]
+}
