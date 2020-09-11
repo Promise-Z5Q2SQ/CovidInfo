@@ -48,7 +48,7 @@ public class Server {
                 Collections.sort(ScholarInfo, new Comparator<Scholar>() {
                     @Override
                     public int compare(Scholar scholar, Scholar t1) {
-                        return t1.num_viewed - scholar.num_followed;
+                        return t1.num_viewed - scholar.num_viewed;
                     }
                 });
             } catch (IOException e) {System.out.println("IOException!");}

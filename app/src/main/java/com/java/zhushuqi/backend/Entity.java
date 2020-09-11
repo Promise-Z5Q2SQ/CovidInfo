@@ -4,9 +4,7 @@ import android.graphics.Bitmap;
 import java.util.HashMap;
 
 public class Entity {
-    public double hot;//热度
     public String label;//图谱节点名
-    public String url;//链接
     public String enwiki;//英文维基
     public String baidu;//百度
     public String zhwiki;//中文维基

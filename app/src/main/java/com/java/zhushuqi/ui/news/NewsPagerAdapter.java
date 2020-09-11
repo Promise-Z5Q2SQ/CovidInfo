@@ -8,18 +8,16 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SectionsPagerAdapter extends FragmentPagerAdapter {
-    List<PlaceholderFragment> placeholderFragmentList = new ArrayList<>();
-    private final Context mContext;
+public class NewsPagerAdapter extends FragmentPagerAdapter {
+    List<NewsHolderFragment> placeholderFragmentList = new ArrayList<>();
 
-    public SectionsPagerAdapter(Context context, FragmentManager fm, List<PlaceholderFragment> list) {
+    public NewsPagerAdapter( FragmentManager fm, List<NewsHolderFragment> list) {
         super(fm);
-        mContext = context;
         placeholderFragmentList = list;
     }
 
     @Override
-    public PlaceholderFragment getItem(int position) {
+    public NewsHolderFragment getItem(int position) {
         // getItem is called to instantiate the fragment for the given page.
         // Return a PlaceholderFragment (defined as a static inner class below).
         return placeholderFragmentList.get(position);

@@ -17,6 +17,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
+import com.google.android.material.tabs.TabLayout;
 import com.java.zhushuqi.NewsPageActivity;
 import com.java.zhushuqi.R;
 import com.java.zhushuqi.ScholarPageActivity;
@@ -24,6 +26,7 @@ import com.java.zhushuqi.backend.ConnectInterface;
 import com.java.zhushuqi.backend.Entity;
 import com.java.zhushuqi.backend.Scholar;
 import com.java.zhushuqi.ui.knowledge.KnowledgeFragment;
+import com.java.zhushuqi.ui.news.NewsPagerAdapter;
 import io.reactivex.functions.Consumer;
 import org.jetbrains.annotations.NotNull;
 
@@ -31,26 +34,34 @@ import java.io.ByteArrayOutputStream;
 import java.util.*;
 
 public class ScholarFragment extends Fragment {
-    private RecyclerView mRecyclerView;
-    private LinearLayoutManager mLayoutManager;
+    ViewPager viewPager;
+    List<ScholarHolderFragment> scholarHolderFragments = new ArrayList<>();
+    ScholarHolderFragment gaoGuanZhu = new ScholarHolderFragment("高关注学者");
+    ScholarHolderFragment zhuiyi = new ScholarHolderFragment("追忆学者");
+    ScholarPagerAdapter scholarPagerAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_scholar, container, false);
-        mRecyclerView = root.findViewById(R.id.recyclerView);
-        mRecyclerView.setHasFixedSize(true);
-        ScholarAdapter scholarAdapter = new ScholarAdapter();
-        mRecyclerView.setAdapter(scholarAdapter);
-        mLayoutManager = new LinearLayoutManager(this.getContext());
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        scholarHolderFragments.add(gaoGuanZhu);
+        scholarHolderFragments.add(zhuiyi);
+
+        scholarPagerAdapter = new ScholarPagerAdapter(
+                this.requireActivity().getSupportFragmentManager(), scholarHolderFragments);
+        viewPager = root.findViewById(R.id.viewpager);
+        viewPager.setAdapter(scholarPagerAdapter);
+        TabLayout tabs = root.findViewById(R.id.tabs);
+        tabs.setupWithViewPager(viewPager);
+
         return root;
     }
 
     public static class ScholarAdapter extends RecyclerView.Adapter<ScholarAdapter.ViewHolder> {
         List<Scholar> data = new ArrayList<>();
+        String type;
 
-        public ScholarAdapter() {
+        public ScholarAdapter(String type) {
+            this.type = type;
             ConnectInterface.GetScholar().subscribe(new Consumer<List<Scholar>>() {
                 @Override
                 public void accept(List<Scholar> currentScholar) {
@@ -91,6 +102,7 @@ public class ScholarFragment extends Fragment {
                     intent.putExtra("work", data.get(position).work);
                     intent.putExtra("bio", data.get(position).bio);
                     intent.putExtra("edu", data.get(position).edu);
+                    intent.putExtra("positionNum", position);
                     context.startActivity(intent);
                 }
             });

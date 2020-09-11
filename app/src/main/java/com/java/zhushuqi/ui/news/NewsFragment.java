@@ -15,7 +15,6 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.java.zhushuqi.HistoryAdapter;
-import com.java.zhushuqi.NewsPageActivity;
 import com.java.zhushuqi.R;
 import com.google.android.material.tabs.TabLayout;
 import com.java.zhushuqi.TabSelectActivity;
@@ -31,11 +30,11 @@ public class NewsFragment extends Fragment {
     SearchView mSearchView;
     private ListView mListView;
     private final List<String> mStrings = new ArrayList<>();
-    List<PlaceholderFragment> placeholderFragments = new ArrayList<>();
-    PlaceholderFragment fragment_all = new PlaceholderFragment("all");
-    PlaceholderFragment fragment_news = new PlaceholderFragment("news");
-    PlaceholderFragment fragment_paper = new PlaceholderFragment("paper");
-    SectionsPagerAdapter sectionsPagerAdapter;
+    List<NewsHolderFragment> placeholderFragments = new ArrayList<>();
+    NewsHolderFragment fragment_all = new NewsHolderFragment("all");
+    NewsHolderFragment fragment_news = new NewsHolderFragment("news");
+    NewsHolderFragment fragment_paper = new NewsHolderFragment("paper");
+    NewsPagerAdapter newsPagerAdapter;
     ViewPager viewPager;
     View root;
     public HashMap<String, Boolean> exist = new HashMap<>();
@@ -50,11 +49,11 @@ public class NewsFragment extends Fragment {
         exist.put("Paper", true);
 
         root = inflater.inflate(R.layout.fragment_news, container, false);
-        sectionsPagerAdapter = new SectionsPagerAdapter(root.getContext(),
+        newsPagerAdapter = new NewsPagerAdapter(
                 this.requireActivity().getSupportFragmentManager(), placeholderFragments);
         viewPager = root.findViewById(R.id.viewpager);
         viewPager.setOffscreenPageLimit(2);
-        viewPager.setAdapter(sectionsPagerAdapter);
+        viewPager.setAdapter(newsPagerAdapter);
         TabLayout tabs = root.findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
 
@@ -129,9 +128,9 @@ public class NewsFragment extends Fragment {
         placeholderFragments.add(fragment_all);
         if (exist.get("News")) placeholderFragments.add(fragment_news);
         if (exist.get("Paper")) placeholderFragments.add(fragment_paper);
-        sectionsPagerAdapter = new SectionsPagerAdapter(root.getContext(),
+        newsPagerAdapter = new NewsPagerAdapter(
                 this.requireActivity().getSupportFragmentManager(), placeholderFragments);
-        viewPager.setAdapter(sectionsPagerAdapter);
+        viewPager.setAdapter(newsPagerAdapter);
     }
 
     @Override

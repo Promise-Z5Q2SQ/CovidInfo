@@ -54,16 +54,9 @@ public class ScholarLoader {
                 p.img = BitmapFactory.decodeStream(url.openConnection().getInputStream());
             }
             p.name = inf.optString("name");
-            p.name_zh = inf.optString("name_zh");
-            if (!p.name_zh.equals("")) p.name = p.name_zh;
+            String name_zh = inf.optString("name_zh");
+            if (!name_zh.equals("")) p.name = name_zh;
             p.num_viewed = inf.optInt("num_viewed");
-            p.num_followed = inf.optInt("num_followed");
-            JSONArray tag = inf.optJSONArray("tags");
-            if (tag != null) {
-                for (int j = 0; j < tag.length(); j++) {
-                    p.tags.add(tag.optString(j));
-                }
-            }
             p.is_passedaway = inf.optBoolean("is_passedaway");
             JSONObject indices = inf.optJSONObject("indices");
             p.activity = indices.optString("activity");
@@ -77,7 +70,6 @@ public class ScholarLoader {
             p.affiliation_zh = profile.optString("affiliation_zh");
             p.bio = profile.optString("bio");
             p.edu = profile.optString("edu");
-            p.homepage = profile.optString("homepage");
             p.position = profile.optString("position");
             p.work = profile.optString("work");
             scl.add(p);

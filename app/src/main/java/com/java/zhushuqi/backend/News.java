@@ -7,8 +7,6 @@ public class News {
     public String type;//新闻类型，news/paper/event
     public String title;//新闻标题
     public String date;//时间
-    public String lang;//语种
-    public String influence;//影响力
     public String author;//作者（一个字符串，其中各个作者的名字用空格分隔）
     public String content;//内容
     public String[] seg_text;//关键字字符串，用空格分隔
@@ -22,8 +20,6 @@ public class News {
                 ", type='" + type + '\'' +
                 ", title='" + title + '\'' +
                 ", date='" + date + '\'' +
-                ", lang='" + lang + '\'' +
-                ", influence='" + influence + '\'' +
                 ", author='" + author + '\'' +
                 ", content='" + content + '\'' +
                 ", seg_text=" + Arrays.toString(seg_text) +

@@ -33,7 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class PlaceholderFragment extends Fragment {
+public class NewsHolderFragment extends Fragment {
     private String name;
     private RecyclerView mRecyclerView;
     public MyAdapter mAdapter;
@@ -41,7 +41,7 @@ public class PlaceholderFragment extends Fragment {
     private LinearLayoutManager mLayoutManager;
     View root;
 
-    PlaceholderFragment(String name) {
+    NewsHolderFragment(String name) {
         this.name = name;
     }
 

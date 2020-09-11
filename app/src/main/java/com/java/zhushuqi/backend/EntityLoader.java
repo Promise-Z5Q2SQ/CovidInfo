@@ -48,9 +48,7 @@ public class EntityLoader {
         for (int i = 0; i < arr.length(); i++) {
             Entity entity = new Entity();
             JSONObject obj = arr.optJSONObject(i);
-            entity.hot = obj.optDouble("hot");
             entity.label = obj.optString("label");
-            entity.url = obj.optString("url");
             JSONObject abstractinfo = obj.optJSONObject("abstractInfo");
             entity.enwiki = abstractinfo.optString("enwiki");
             entity.baidu = abstractinfo.optString("baidu");

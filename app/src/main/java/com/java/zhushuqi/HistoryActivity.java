@@ -11,15 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.beloo.widget.chipslayoutmanager.ChipsLayoutManager;
-import com.java.zhushuqi.backend.ConnectInterface;
 import com.java.zhushuqi.backend.News;
 import com.java.zhushuqi.backend.Server;
-import com.java.zhushuqi.ui.news.PlaceholderFragment;
-import io.reactivex.functions.Consumer;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;

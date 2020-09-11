@@ -6,22 +6,23 @@
               android:layout_height="match_parent"
               android:orientation="vertical"
 >
-    <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+
+    <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:elevation="4dp"
-            app:titleMarginStart="50dp"
-            app:title="知疫学者"
-            app:titleTextColor="#fff"
-            android:background="@color/colorPrimary"/>
+            android:background="?attr/colorPrimary"
+            app:tabIndicatorColor="@color/colorAccent"
+            app:tabIndicatorHeight="4dp"
+            app:tabSelectedTextColor="#000"
+            app:tabTextColor="#fff"
+    />
 
-    <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+    <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewpager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:overScrollMode="never"
-            android:scrollbars="vertical"
+            android:layout_height="wrap_content"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
     />
 
 </LinearLayout>

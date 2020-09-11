@@ -9,6 +9,11 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
+import com.java.zhushuqi.backend.ConnectInterface;
+import com.java.zhushuqi.backend.Scholar;
+import io.reactivex.functions.Consumer;
+
+import java.util.List;
 
 public class ScholarPageActivity extends AppCompatActivity {
 
@@ -39,5 +44,14 @@ public class ScholarPageActivity extends AppCompatActivity {
         scholar_detail_work.setText(intent.getCharSequenceExtra("work"));
         scholar_detail_edu.setText(intent.getCharSequenceExtra("edu"));
         scholar_detail_bio.setText(intent.getCharSequenceExtra("bio"));
+        int position = intent.getIntExtra("positionNum",0);
+        final Scholar[] scholar = new Scholar[1];
+        ConnectInterface.GetScholar().subscribe(new Consumer<List<Scholar>>() {
+            @Override
+            public void accept(List<Scholar> currentScholar) {
+                scholar[0] = currentScholar.get(position);
+                scholar_detail_image.setImageBitmap(scholar[0].img);
+            }
+        });
     }
 }
