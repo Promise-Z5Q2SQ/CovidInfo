@@ -2,7 +2,9 @@ package com.java.zhushuqi.backend;
 
 import android.view.View;
 
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.lang.reflect.Array;
@@ -27,6 +29,7 @@ public class Server {
     public ArrayList<News> ViewedHistory;       //浏览记录
     public ArrayList<String> WordsHistory;      //搜索历史记录
     public ArrayList<Entity> Entities;          //用于图谱的数据集
+    public ArrayList<News> []Cluster;        //聚类0
     public int news_page = 4;
     public int N_news_page = 4;
     public int P_news_page = 4;
@@ -206,6 +209,18 @@ public class Server {
         }catch(JSONException j){}
     }
 
+    public void ReadCluster(JSONArray src, ArrayList<News> newsl) throws JSONException{
+        JSONObject obj;
+        for (int i = 0; i < src.length(); i++) {
+            News news = new News();
+            obj = src.getJSONObject(i);//这一页里的第i条新闻
+            news.id = obj.optString("_id");
+            news.date = obj.optString("date");
+            news.title = obj.optString("title");
+            newsl.add(news);//把旧新闻一条一条加到新闻列表的末端
+        }
+    }
+
     public void AddNewsToHistory(int v){
         ViewedHistory.add(NewsInShow.get(v));
     }
@@ -221,6 +236,7 @@ public class Server {
         WordsHistory = new ArrayList<String>();     //搜索历史记录
         ViewedHistory = new ArrayList<News>();
         Entities = new ArrayList<Entity>();
+        for(int i = 0; i < 3; i++)Cluster[i] = new ArrayList<News>();
     }
 
     void Search_News(String key){
