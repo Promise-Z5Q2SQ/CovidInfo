@@ -142,7 +142,7 @@ public class NewsHolderFragment extends Fragment {
             return data.size();
         }
 
-        public void loadMore() {
+        public void refreshData() {
             ConnectInterface.GetLatestNews(name).subscribe(new Consumer<List<News>>() {
                 @Override
                 public void accept(List<News> currentNews) {
@@ -153,7 +153,7 @@ public class NewsHolderFragment extends Fragment {
             });
         }
 
-        public void refreshData() {
+        public void loadMore() {
             ConnectInterface.RetrievePresentNews(name).subscribe(new Consumer<List<News>>() {
                 @Override
                 public void accept(List<News> currentNews) {
