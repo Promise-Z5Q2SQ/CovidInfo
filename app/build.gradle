@@ -8,12 +8,18 @@ android {
         applicationId "com.java.zhushuqi"
         minSdkVersion 29
         targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        versionCode 6
+        versionName "6.66"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-
+    android.applicationVariants.all {
+        variant ->
+            variant.outputs.all {
+                // 此处指定生成的apk文件名
+                outputFileName = "CovidInfo.apk"
+            }
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -60,3 +66,4 @@ dependencies {
     implementation 'com.github.pchmn:MaterialChipsInput:1.0.8'
     implementation 'com.github.lecho:hellocharts-library:1.5.8@aar'
 }
+
