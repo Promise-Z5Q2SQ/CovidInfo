@@ -1,20 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.mob.sdk'
-MobSDK {
-    appKey "30c4895b206bd"
-    appSecret "eb8161cc8f09d4063a366ad8f23ff27d"
-    ShareSDK {
-        loopShare true
-        devInfo {
-            SinaWeibo {
-                appKey "1707208010"
-                appSecret "410b000787c4dcf972a34ef755e65bbd"
-                callbackUri "http://www.sharesdk.cn"
-            }
-        }
-    }
-}
-
 
 android {
     compileSdkVersion 30
@@ -51,12 +35,6 @@ buildscript {
         // 注册MobSDK
         classpath "com.mob.sdk:MobSDK:2018.0319.1724"
     }
-}
-
-MobSDK {
-    appKey "30c4895b206bd"
-    appSecret "eb8161cc8f09d4063a366ad8f23ff27d"
-    ShareSDK {}
 }
 
 dependencies {

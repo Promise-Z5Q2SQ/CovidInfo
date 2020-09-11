@@ -29,7 +29,7 @@ public class Server {
     public ArrayList<News> ViewedHistory;       //浏览记录
     public ArrayList<String> WordsHistory;      //搜索历史记录
     public ArrayList<Entity> Entities;          //用于图谱的数据集
-    public ArrayList<News> []Cluster;        //聚类0
+    public ArrayList<News>[] Cluster = new ArrayList[4];        //聚类0
     public int news_page = 4;
     public int N_news_page = 4;
     public int P_news_page = 4;
@@ -38,13 +38,17 @@ public class Server {
         try {
             try {
                 DataMap = DataLoader.GetData();
-            } catch (IOException e) {System.out.println("IOException!");}
-        } catch (JSONException f) {System.out.println("JSONException!");}
+            } catch (IOException e) {
+                System.out.println("IOException!");
+            }
+        } catch (JSONException f) {
+            System.out.println("JSONException!");
+        }
         try {
             try {
                 ScholarInfo = ScholarLoader.GetScholar(ScholarInfo);
-                for(Scholar sc: ScholarInfo){
-                    if(sc.is_passedaway == true){
+                for (Scholar sc : ScholarInfo) {
+                    if (sc.is_passedaway == true) {
                         P_Scholar.add(sc);
                     }
                 }
@@ -54,8 +58,12 @@ public class Server {
                         return t1.num_viewed - scholar.num_viewed;
                     }
                 });
-            } catch (IOException e) {System.out.println("IOException!");}
-        } catch (JSONException f) {System.out.println("JSONException!");}
+            } catch (IOException e) {
+                System.out.println("IOException!");
+            }
+        } catch (JSONException f) {
+            System.out.println("JSONException!");
+        }
     }
 
     public void InitNews() {//打开应用时刷新新闻列表
@@ -64,12 +72,15 @@ public class Server {
                 NewsLoader.GetNews(news_page, "all", 10, NewsInShow);
                 news_page -= 1;
                 NewsLoader.GetNews(news_page, "all", 10, NewsInShow);
-                for(int i = 5; i < 15; i++){
+                for (int i = 5; i < 15; i++) {
                     NewsLoader.GetNews(i, "all", 20, SearchPool);
                 }
-            } catch (IOException e) {System.out.println("IOException!");e.printStackTrace();
+            } catch (IOException e) {
+                System.out.println("IOException!");
+                e.printStackTrace();
             }
-        } catch (JSONException f) {System.out.println("JSONException!");
+        } catch (JSONException f) {
+            System.out.println("JSONException!");
         }
     }
 
@@ -79,9 +90,12 @@ public class Server {
                 NewsLoader.GetNews(N_news_page, "news", 10, N_NewsInShow);
                 N_news_page -= 1;
                 NewsLoader.GetNews(N_news_page, "news", 10, N_NewsInShow);
-            } catch (IOException e) {System.out.println("IOException!");e.printStackTrace();
+            } catch (IOException e) {
+                System.out.println("IOException!");
+                e.printStackTrace();
             }
-        } catch (JSONException f) {System.out.println("JSONException!");
+        } catch (JSONException f) {
+            System.out.println("JSONException!");
         }
     }
 
@@ -91,9 +105,12 @@ public class Server {
                 NewsLoader.GetNews(P_news_page, "paper", 10, P_NewsInShow);
                 P_news_page -= 1;
                 NewsLoader.GetNews(P_news_page, "paper", 10, P_NewsInShow);
-            } catch (IOException e) {System.out.println("IOException!");e.printStackTrace();
+            } catch (IOException e) {
+                System.out.println("IOException!");
+                e.printStackTrace();
             }
-        } catch (JSONException f) {System.out.println("JSONException!");
+        } catch (JSONException f) {
+            System.out.println("JSONException!");
         }
     }
 
@@ -102,14 +119,13 @@ public class Server {
         try {
             try {
                 int h = 0;
-                if(news_page >= 1){
+                if (news_page >= 1) {
                     h = NewsLoader.RenewNews(news_page - 1, "all", 10, NewsInShow);//更新了多少条新闻
                     news_page -= 1;
-                }
-                else{
+                } else {
                     h = NewsLoader.RenewNews(0, "all", 10, NewsInShow);//更新了多少条新闻
                 }
-                for(int i = 0; i < h; i++){
+                for (int i = 0; i < h; i++) {
                     NewsInShow.remove(NewsInShow.size() - 1);
                 }
                 return h;
@@ -122,31 +138,31 @@ public class Server {
     }
 
 
-    public void RetrievePresentNews(){//上拉查看更早的新闻(固定更新10条)
+    public void RetrievePresentNews() {//上拉查看更早的新闻(固定更新10条)
         try {
             try {
                 NewsLoader.RetrieveNews(news_page + 2, "all", 10, NewsInShow);
                 news_page += 1;
-                while(NewsInShow.size() > 20){
+                while (NewsInShow.size() > 20) {
                     NewsInShow.remove(0);
                 }
             } catch (IOException e) {
             }
-        }catch(JSONException j){}
+        } catch (JSONException j) {
+        }
     }
 
     public int GetLatestNews_N() {//下拉获取最新新闻,返回值是获取的新的新闻的数量
         try {
             try {
                 int h = 0;
-                if(N_news_page >= 1){
+                if (N_news_page >= 1) {
                     h = NewsLoader.RenewNews(N_news_page - 1, "news", 10, N_NewsInShow);//更新了多少条新闻
                     N_news_page -= 1;
-                }
-                else{
+                } else {
                     h = NewsLoader.RenewNews(0, "news", 10, N_NewsInShow);//更新了多少条新闻
                 }
-                for(int i = 0; i < h; i++){
+                for (int i = 0; i < h; i++) {
                     N_NewsInShow.remove(N_NewsInShow.size() - 1);
                 }
                 return h;
@@ -159,31 +175,31 @@ public class Server {
     }
 
 
-    public void RetrievePresentNews_N(){//上拉查看更早的新闻(固定更新10条)
+    public void RetrievePresentNews_N() {//上拉查看更早的新闻(固定更新10条)
         try {
             try {
                 NewsLoader.RetrieveNews(N_news_page + 2, "news", 10, N_NewsInShow);
                 N_news_page += 1;
-                while(N_NewsInShow.size() > 20){
+                while (N_NewsInShow.size() > 20) {
                     N_NewsInShow.remove(0);
                 }
             } catch (IOException e) {
             }
-        }catch(JSONException j){}
+        } catch (JSONException j) {
+        }
     }
 
     public int GetLatestNews_P() {//下拉获取最新新闻,返回值是获取的新的新闻的数量
         try {
             try {
                 int h = 0;
-                if(P_news_page >= 1){
+                if (P_news_page >= 1) {
                     h = NewsLoader.RenewNews(P_news_page - 1, "paper", 10, P_NewsInShow);//更新了多少条新闻
                     P_news_page -= 1;
-                }
-                else{
+                } else {
                     h = NewsLoader.RenewNews(0, "paper", 10, P_NewsInShow);//更新了多少条新闻
                 }
-                for(int i = 0; i < h; i++){
+                for (int i = 0; i < h; i++) {
                     P_NewsInShow.remove(P_NewsInShow.size() - 1);
                 }
                 return h;
@@ -196,20 +212,21 @@ public class Server {
     }
 
 
-    public void RetrievePresentNews_P(){//上拉查看更早的新闻(固定更新10条)
+    public void RetrievePresentNews_P() {//上拉查看更早的新闻(固定更新10条)
         try {
             try {
                 NewsLoader.RetrieveNews(P_news_page + 2, "paper", 10, P_NewsInShow);
                 P_news_page += 1;
-                while(P_NewsInShow.size() > 20){
+                while (P_NewsInShow.size() > 20) {
                     P_NewsInShow.remove(0);
                 }
             } catch (IOException e) {
             }
-        }catch(JSONException j){}
+        } catch (JSONException j) {
+        }
     }
 
-    public void ReadCluster(JSONArray src, ArrayList<News> newsl) throws JSONException{
+    public void ReadCluster(JSONArray src, ArrayList<News> newsl) throws JSONException {
         JSONObject obj;
         for (int i = 0; i < src.length(); i++) {
             News news = new News();
@@ -221,11 +238,11 @@ public class Server {
         }
     }
 
-    public void AddNewsToHistory(int v){
+    public void AddNewsToHistory(int v) {
         ViewedHistory.add(NewsInShow.get(v));
     }
 
-    public Server(){
+    public Server() {
         DataMap = new HashMap<String, Dataset>();
         ScholarInfo = new ArrayList<Scholar>();     //学者信息
         NewsInShow = new ArrayList<News>();         //正出现在浏览界面的新闻（20）
@@ -236,14 +253,14 @@ public class Server {
         WordsHistory = new ArrayList<String>();     //搜索历史记录
         ViewedHistory = new ArrayList<News>();
         Entities = new ArrayList<Entity>();
-        for(int i = 0; i < 3; i++)Cluster[i] = new ArrayList<News>();
+        for (int i = 0; i < 3; i++) Cluster[i] = new ArrayList<News>();
     }
 
-    void Search_News(String key){
+    void Search_News(String key) {
         SearchAnswer.clear();
-        for(News n:SearchPool){
-            for(int i = 0; i < n.title.length() - key.length(); i++){
-                if(n.title.substring(i, i + key.length()).equals(key)){
+        for (News n : SearchPool) {
+            for (int i = 0; i < n.title.length() - key.length(); i++) {
+                if (n.title.substring(i, i + key.length()).equals(key)) {
                     SearchAnswer.add(n);
                     break;
                 }
