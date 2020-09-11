@@ -297,9 +297,7 @@ public class ConnectInterface {
                     else{
                         reader = new BufferedReader(new InputStreamReader(context.getResources().openRawResource(R.raw.keyword3)));
                     }
-                    while((msg = reader.readLine()).length() > 0){
-                        content = content += msg;
-                    }
+                    content = reader.readLine();
                     JSONArray arr = new JSONArray(content);
                     for(int i = 0; i < 4; i++){
                         JSONArray ar = arr.optJSONArray(i);
@@ -339,13 +337,11 @@ public class ConnectInterface {
                     else{
                         reader = new BufferedReader(new InputStreamReader(context.getResources().openRawResource(R.raw.category3)));
                     }
-                    while((msg = reader.readLine()).length() > 0){
-                        content = content += msg;
-                    }
+                    content = reader.readLine();
                     JSONArray arr = new JSONArray(content);
-                    Server.server.ReadCluster(arr, Server.server.Cluster[c]);
-                    System.out.println(Server.server.Cluster.toString());
-                    return Server.server.Cluster[c];
+                    ArrayList<News> lst = new ArrayList<News>();
+                    Server.server.ReadCluster(arr, lst);
+                    return lst;
                 } catch (Exception e) {
                     return new ArrayList<News>();
                 }
@@ -353,8 +349,9 @@ public class ConnectInterface {
         }).flatMap(new Function<List<News>, Publisher<News>>() {
             @Override
             public Publisher<News> apply(List<News> Newses) {
-                if (Newses.size() > 0) return Flowable.fromIterable(Newses);
-                return Flowable.fromIterable(Server.server.NewsInShow);//fixme 如果运行了这一句代表网络出现问题没有正常返回
+                //if (Newses.size() > 0)
+                return Flowable.fromIterable(Newses);
+                //return Flowable.fromIterable(Server.server.NewsInShow);//fixme 如果运行了这一句代表网络出现问题没有正常返回
             }
         }).toList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }

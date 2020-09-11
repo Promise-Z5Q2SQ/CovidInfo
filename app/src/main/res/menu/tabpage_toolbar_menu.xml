@@ -10,4 +10,9 @@
             android:icon="@drawable/ic_history_black_24dp"
             app:showAsAction="always"
             android:title="@string/history"/>
+    <item
+            android:id="@+id/action_cluster"
+            android:icon="@drawable/ic_cluster_black_24dp"
+            app:showAsAction="always"
+            android:title="@string/cluster"/>
 </menu>

@@ -1,13 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+>
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="?attr/actionBarSize"
+                  android:orientation="horizontal"
+    >
+
+        <com.pchmn.materialchips.ChipView
+                android:id="@+id/key_word0"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+        />
+
+        <com.pchmn.materialchips.ChipView
+                android:id="@+id/key_word1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+        />
+
+        <com.pchmn.materialchips.ChipView
+                android:id="@+id/key_word2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+        />
+
+        <com.pchmn.materialchips.ChipView
+                android:id="@+id/key_word3"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+        />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewww"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#fff"
             android:overScrollMode="never"
             android:scrollbars="vertical"
-            />
+    />
 </LinearLayout>

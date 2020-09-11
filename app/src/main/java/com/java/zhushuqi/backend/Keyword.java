@@ -7,4 +7,9 @@ public class Keyword {
         word = str;
         occurence = oc;
     }
+
+    @Override
+    public String toString() {
+        return  word + ": " + occurence;
+    }
 }

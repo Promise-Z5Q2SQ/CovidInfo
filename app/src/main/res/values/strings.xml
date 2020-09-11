@@ -11,4 +11,5 @@
     <string name="properties">Properties</string>
     <string name="relations">Relations</string>
     <string name="scholar">Scholar</string>
+    <string name="cluster">Cluster</string>
 </resources>

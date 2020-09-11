@@ -15,6 +15,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.RecyclerView;
 import com.beloo.widget.chipslayoutmanager.ChipsLayoutManager;
+import com.java.zhushuqi.ui.news.ClusterActivity;
 import com.pchmn.materialchips.ChipView;
 import org.jetbrains.annotations.NotNull;
 
@@ -81,6 +82,14 @@ public class TabSelectActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(context, HistoryActivity.class);
                 context.startActivity(intent);
+            }
+        });
+
+        toolbar.findViewById(R.id.action_cluster).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), ClusterActivity.class);
+                view.getContext().startActivity(intent);
             }
         });
     }
