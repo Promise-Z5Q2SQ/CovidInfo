@@ -46,10 +46,9 @@ public class ScholarHolderFragment extends Fragment {
                              @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.scholar_list, container, false);
 
-        mRecyclerView = root.findViewById(R.id.recyclerView);
+        mRecyclerView = root.findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(true);
         ScholarAdapter scholarAdapter = new ScholarAdapter(type);
-        System.out.println(type);
         mRecyclerView.setAdapter(scholarAdapter);
         mLayoutManager = new LinearLayoutManager(this.getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -57,21 +56,31 @@ public class ScholarHolderFragment extends Fragment {
 
         return root;
     }
-    
+
     public static class ScholarAdapter extends RecyclerView.Adapter<ScholarAdapter.ViewHolder> {
         List<Scholar> data = new ArrayList<>();
         String type;
 
         public ScholarAdapter(String type) {
             this.type = type;
-            ConnectInterface.GetScholar().subscribe(new Consumer<List<Scholar>>() {
-                @Override
-                public void accept(List<Scholar> currentScholar) {
-                    data = currentScholar;
-                    notifyDataSetChanged();
-                    System.out.println("Load " + currentScholar.size());
-                }
-            });
+            if (type.equals("高关注学者"))
+                ConnectInterface.GetScholar().subscribe(new Consumer<List<Scholar>>() {
+                    @Override
+                    public void accept(List<Scholar> currentScholar) {
+                        data = currentScholar;
+                        notifyDataSetChanged();
+                        System.out.println(type + " load " + currentScholar.size());
+                    }
+                });
+            else
+                ConnectInterface.GetP_Scholar().subscribe(new Consumer<List<Scholar>>() {
+                    @Override
+                    public void accept(List<Scholar> currentScholar) {
+                        data = currentScholar;
+                        notifyDataSetChanged();
+                        System.out.println(type + " load " + currentScholar.size());
+                    }
+                });
         }
 
         @NotNull
@@ -105,6 +114,7 @@ public class ScholarHolderFragment extends Fragment {
                     intent.putExtra("bio", data.get(position).bio);
                     intent.putExtra("edu", data.get(position).edu);
                     intent.putExtra("positionNum", position);
+                    intent.putExtra("type", type);
                     context.startActivity(intent);
                 }
             });

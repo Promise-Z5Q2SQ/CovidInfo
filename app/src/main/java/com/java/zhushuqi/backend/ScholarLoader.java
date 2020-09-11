@@ -57,7 +57,7 @@ public class ScholarLoader {
             String name_zh = inf.optString("name_zh");
             if (!name_zh.equals("")) p.name = name_zh;
             p.num_viewed = inf.optInt("num_viewed");
-            p.is_passedaway = inf.optBoolean("is_passedaway");
+            p.is_passedaway = inf.optString("is_passedaway");
             JSONObject indices = inf.optJSONObject("indices");
             p.activity = indices.optString("activity");
             p.citations = indices.optInt("citations");

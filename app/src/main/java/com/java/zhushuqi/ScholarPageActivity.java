@@ -44,14 +44,24 @@ public class ScholarPageActivity extends AppCompatActivity {
         scholar_detail_work.setText(intent.getCharSequenceExtra("work"));
         scholar_detail_edu.setText(intent.getCharSequenceExtra("edu"));
         scholar_detail_bio.setText(intent.getCharSequenceExtra("bio"));
-        int position = intent.getIntExtra("positionNum",0);
+        int position = intent.getIntExtra("positionNum", 0);
+        String type = intent.getStringExtra("type");
         final Scholar[] scholar = new Scholar[1];
-        ConnectInterface.GetScholar().subscribe(new Consumer<List<Scholar>>() {
-            @Override
-            public void accept(List<Scholar> currentScholar) {
-                scholar[0] = currentScholar.get(position);
-                scholar_detail_image.setImageBitmap(scholar[0].img);
-            }
-        });
+        if (type.equals("高关注学者"))
+            ConnectInterface.GetScholar().subscribe(new Consumer<List<Scholar>>() {
+                @Override
+                public void accept(List<Scholar> currentScholar) {
+                    scholar[0] = currentScholar.get(position);
+                    scholar_detail_image.setImageBitmap(scholar[0].img);
+                }
+            });
+        else
+            ConnectInterface.GetP_Scholar().subscribe(new Consumer<List<Scholar>>() {
+                @Override
+                public void accept(List<Scholar> currentScholar) {
+                    scholar[0] = currentScholar.get(position);
+                    scholar_detail_image.setImageBitmap(scholar[0].img);
+                }
+            });
     }
 }

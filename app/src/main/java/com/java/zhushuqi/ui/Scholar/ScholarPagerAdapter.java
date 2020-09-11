@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import com.java.zhushuqi.ui.news.NewsHolderFragment;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -18,8 +19,6 @@ public class ScholarPagerAdapter extends FragmentPagerAdapter {
         this.scholarHolderFragments = scholarHolderFragments;
     }
 
-    @NonNull
-    @NotNull
     @Override
     public ScholarHolderFragment getItem(int position) {
         return scholarHolderFragments.get(position);

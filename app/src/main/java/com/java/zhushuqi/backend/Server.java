@@ -48,7 +48,7 @@ public class Server {
             try {
                 ScholarInfo = ScholarLoader.GetScholar(ScholarInfo);
                 for (Scholar sc : ScholarInfo) {
-                    if (sc.is_passedaway == true) {
+                    if (sc.is_passedaway.equals("true")) {
                         P_Scholar.add(sc);
                     }
                 }
@@ -253,6 +253,7 @@ public class Server {
         WordsHistory = new ArrayList<String>();     //搜索历史记录
         ViewedHistory = new ArrayList<News>();
         Entities = new ArrayList<Entity>();
+        P_Scholar = new ArrayList<Scholar>();
         for (int i = 0; i < 3; i++) Cluster[i] = new ArrayList<News>();
     }
 

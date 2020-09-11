@@ -23,7 +23,7 @@ public class Scholar {
     public String diversity;
     public int citations;
 
-    public boolean is_passedaway = false;
+    public String is_passedaway = "";
 
     public Scholar() { }
 
