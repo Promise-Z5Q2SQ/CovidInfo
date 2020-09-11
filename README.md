@@ -1,8 +1,6 @@
 ## JAVA 小学期大作业报告
 
-​							计83 朱书琦 2018011358
-
-​							计85 张庶杰 2018011415
+计83 朱书琦 2018011358		计85 张庶杰 2018011415
 
 ### 一、代码结构
 
@@ -10,36 +8,101 @@
 
 #### 1.1、前端
 
-前端界面包括以下java类：
+前端界面包括以下主要的功能java类：
 
-```
-疫情数据显示：
-DataFragment         	//疫情数据显示界面，包含搜索栏和图表栏
-疫情知识图谱显示：			
-KnowledgeFragment			//知识图谱数据显示界面
-新闻聚类显示：
-ClusterActivity				//新闻聚类主界面
-ClusterHolderFragment	//新闻聚类显示界面，包括关键字标签和新闻浏览窗口
-新闻显示：
-NewsFragment					//新闻显示界面
-NewsHolderFragment		//新闻浏览界面，包括上拉下拉工具栏与新闻浏览窗口
-NewsPagerAdapter			//新闻详情界面的适配器类
-NewsPage							//新闻详情界面
-学者信息显示：
-ScholarFragment				//学者列表界面
-ScholarHolderFragment	//学者浏览界面
-ScholarPagerAdapter		//学者详情界面的适配器类
-ScholarPage						//学者详情界面
-浏览历史显示：
-HistoryActivity				//历史记录界面
-HistoryAdapter				//历史记录界面适配器类
-标签：
-TabSelectActivity			//标签增、删
-```
+> 新闻显示：
+>
+> NewsFragment //新闻显示框架
+>
+> NewsHolderFragment //新闻浏览界面，包括上拉下拉工具栏与新闻浏览窗口
+>
+> NewsPageActivity //新闻详情界
 
-前端还包含以下.xml文件：
+> 疫情数据显示：
+>
+> DataFragment //疫情数据显示界面，包含搜索栏和图表栏
 
-![image-20200911143345527](/Users/sj-zhang/Library/Application Support/typora-user-images/image-20200911143345527.png)
+> 疫情知识图谱显示：			
+>
+> KnowledgeFragment //知识图谱数据显示界面
+
+> 新闻聚类显示：
+>
+> ClusterActivity //新闻聚类主界面
+>
+> ClusterHolderFragment //新闻聚类显示框架，包括关键字标签和新闻浏览窗口
+
+> 学者信息显示：
+>
+> ScholarHolderFragment //学者浏览框架
+>
+> ScholarPage //学者详情界面
+>
+> ScholarFragmentActivity //学者列表界面
+
+> 标签：
+>
+> TabSelectActivity //标签增删等设置界面
+
+> 浏览历史显示：
+>
+> HistoryActivity //查看历史记录界面
+
+以及`MainAcitivity`和一系列的组件适配器`Adapter`类，在布局方面前端还包含以下xml文件：
+
+> 新闻显示：
+>
+> fragment_news.xml //新闻显示组件
+>
+> news_list.xml
+>
+> news_item.xml
+>
+> activity_news_page.xml //新闻正文界面
+>
+> search_history_item.xml //搜索历史记录项单元
+
+> 疫情数据显示：
+>
+> fragment_data.xml //数据显示组件
+>
+> data_chart.xml
+
+> 疫情知识图谱显示：
+>
+> fragment_knowledge.xml //知识图谱显示组件
+>
+> scholar_list.xml
+>
+> knowledge_item.xml
+>
+> relation_item.xml //关系或属性标签单元
+
+> 新闻聚类显示：
+>
+> activity_cluster.xml //聚类显示组件
+>
+> cluster_list.xml
+
+> 学者信息显示：
+>
+> fragment_scholar.xml //学者信息组件
+>
+> scholar_list.xml
+>
+> scholar_item.xml
+>
+> activity_scholar_page.xml //学者详情页面
+
+> 标签修改界面：
+>
+> tab_select_page.xml
+>
+> tag_item.xml //标签增减单元
+
+> 浏览历史记录：
+>
+> activity_history.xml
 
 以上文件包括了新闻主界面、新闻滚动栏界面、搜索界面、标签界面、数据显示界面、图谱界面等。
 
