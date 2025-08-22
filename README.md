@@ -158,31 +158,31 @@
 
 其中新闻展示栏集`RecyclerView`、`SmartRefreshLayout`两个类为一体，添加了装饰线和加载动画，加载流畅。新闻的点击进入详情页利用`CardView`类的`click`事件实现，加载内容为新闻的正文内容。
 
-<img src="/Users/zsq/Documents/GitHub/CovidInfo/README.assets/image-20200911231209720.png" alt="image-20200911231209720" style="zoom:25%;" />
+<img src="/README.assets/image-20200911231209720.png" alt="image-20200911231209720" style="zoom:25%;" />
 
 ##### 2.1.2、标签增减
 
 标签增减功能位于主页右下角的设置栏中，我们利用`ChipsView`组件及其相关动作函数实现了这一功能，方便且带有动态效果。我们利用`Intent`在主界面`Activity`与工具栏`Activity`之间传递信息，从而实现了近乎同步的标签增删操作。
 
-<img src="/Users/zsq/Documents/GitHub/CovidInfo/README.assets/image-20200911231255362.png" alt="image-20200911231255362" style="zoom:25%;" />
+<img src="/README.assets/image-20200911231255362.png" alt="image-20200911231255362" style="zoom:25%;" />
 
 ##### 2.1.3、疫情知识图谱
 
 知识图谱界面经过精心设计，支持搜索功能，利用`Bitmap`类对词条图片进行读取并展示。同时对于一个确定的实体，能够展示所有与之相关的其余所有实体并利用`CardView`类，重写其点击事件，以此实现了在实体详情页面之间的跳转。
 
-<img src="/Users/zsq/Documents/GitHub/CovidInfo/README.assets/image-20200911231302563.png" alt="image-20200911231302563" style="zoom:25%;" />
+<img src="/README.assets/image-20200911231302563.png" alt="image-20200911231302563" style="zoom:25%;" />
 
 ##### 2.1.4、疫情学者
 
 疫情学者界面分为高关注学者与追忆学者两个标签，每个标签栏下有对应学者的信息（与新闻列表类似），且能够点击进入学者名片，查看学者头像、生平简介、主要贡献等信息。
 
-<img src="/Users/zsq/Documents/GitHub/CovidInfo/README.assets/image-20200911231334351.png" alt="image-20200911231334351" style="zoom:25%;" />
+<img src="/README.assets/image-20200911231334351.png" alt="image-20200911231334351" style="zoom:25%;" />
 
 ##### 2.1.5、疫情数据展示
 
 展示窗口中，我们利用了`hellocharts`库进行折线图的绘制，绘制内容为中数据库中有数据的地区的死亡人数、确诊人数、治愈人数数据，同时能够支持与用户的交互，用户输入查询地点，app进行对应数据的绘制。
 
-<img src="/Users/zsq/Documents/GitHub/CovidInfo/README.assets/image-20200911231310389.png" alt="image-20200911231310389" style="zoom:25%;" />
+<img src="/README.assets/image-20200911231310389.png" alt="image-20200911231310389" style="zoom:25%;" />
 
 ##### 2.1.6、浏览历史显示
 
@@ -192,7 +192,7 @@
 
 我们利用系统自带的分享功能进行分享，目前能够通过任何能够发送文本的应用（包括蓝牙）分享包含新闻摘要与具体内容的纯文本。
 
-<img src="/Users/zsq/Documents/GitHub/CovidInfo/README.assets/image-20200911231406502.png" alt="image-20200911231406502" style="zoom:25%;" />
+<img src="/README.assets/image-20200911231406502.png" alt="image-20200911231406502" style="zoom:25%;" />
 
 #### 2.2、后端实现
 
